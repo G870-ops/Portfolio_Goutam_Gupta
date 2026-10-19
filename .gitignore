@@ -15,11 +15,14 @@ frontend/node_modules/
 backend/.env
 frontend/.env
 *.env.local
+.env.example
+
 
 # Build outputs
 dist/
 build/
 frontend/dist/
+
 
 # IDE & OS
 .vscode/
