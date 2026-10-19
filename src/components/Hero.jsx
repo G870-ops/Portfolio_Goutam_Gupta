@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Phone, Github, Linkedin, Download, Send, CheckCircle2 } from 'lucide-react';
+import profileImage from '../assets/profile.jpg';
 
 const titles = [
   'Full-Stack MERN Developer',
@@ -60,12 +61,8 @@ const Hero = ({ onHireClick }) => {
         >
           <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-cyber-cyan via-cyber-pink to-cyber-green opacity-75 blur-md group-hover:opacity-100 group-hover:blur-lg transition duration-500 animate-pulse" />
           <img
-            src="/profile.jpg"
+            src={profileImage || "/profile.jpg"}
             alt="Goutam Gupta"
-            onError={(e) => {
-              // Fallback if public folder image not yet mounted
-              e.target.src = 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop';
-            }}
             className="relative w-36 h-36 sm:w-44 sm:h-44 rounded-full object-cover border-2 border-cyber-cyan shadow-glow-cyan transition-transform duration-500 group-hover:scale-105"
           />
           <div className="absolute bottom-1 right-1 bg-cyber-dark/90 px-2 py-0.5 rounded-full border border-cyber-green text-[10px] font-orbitron text-cyber-green flex items-center gap-1 shadow-glow-green">
