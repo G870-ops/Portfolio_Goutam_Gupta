@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-[#020205] text-[#e0e0e0] font-rajdhani overflow-x-hidden antialiased;
+  }
+}
+
+/* Custom Cyberpunk & Glassmorphic Utilities */
+@layer utilities {
+  .neo-clip {
+    clip-path: polygon(8% 0, 100% 0, 92% 100%, 0 100%);
+  }
+  
+  .glass-panel {
+    background: rgba(8, 10, 22, 0.85);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(0, 243, 255, 0.22);
+  }
+  
+  .glass-panel-pink {
+    background: rgba(14, 8, 22, 0.85);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 0, 255, 0.25);
+  }
+
+  .text-glow-cyan {
+    text-shadow: 0 0 12px rgba(0, 243, 255, 0.7);
+  }
+
+  .text-glow-pink {
+    text-shadow: 0 0 12px rgba(255, 0, 255, 0.7);
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #020205;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #00f3ff;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ff00ff;
+}
