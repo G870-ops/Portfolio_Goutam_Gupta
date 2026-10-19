@@ -4,7 +4,9 @@ import axios from 'axios';
 const getApiBaseUrl = () => {
   const envUrl = import.meta.env.VITE_API_BASE_URL;
   if (!envUrl || !envUrl.trim()) {
-    return '/api';
+    return import.meta.env.DEV
+      ? '/api'
+      : 'https://portfolio-goutam-gupta-backend.vercel.app/api';
   }
   const clean = envUrl.trim().replace(/\/+$/, '');
   return clean.endsWith('/api') ? clean : `${clean}/api`;
