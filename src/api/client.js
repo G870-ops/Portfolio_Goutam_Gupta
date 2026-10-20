@@ -69,6 +69,7 @@ export const contactAPI = {
 export const authAPI = {
   login: (credentials) => api.post('/auth/login', credentials),
   getMe: () => api.get('/auth/me'),
+  changePassword: (data) => api.put('/auth/change-password', data),
 };
 
 export const telemetryAPI = {

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import {
   X, Shield, Plus, Trash2, Mail, LogOut, CheckCircle, AlertCircle,
   Loader2, Pencil, XCircle, ExternalLink, Download, Save, User,
-  Code, RefreshCw, Star,
+  Code, RefreshCw, Star, Lock, Key,
 } from 'lucide-react';
 import { authAPI, projectAPI, skillAPI, contactAPI } from '../api/client';
 
@@ -252,6 +252,11 @@ const AdminDashboard = ({ isOpen, onClose, onProjectUpdated, onSkillsUpdated }) 
   });
   const [profileMsg, setProfileMsg] = useState({ type: '', text: '' });
 
+  // Password change state
+  const [passwordForm, setPasswordForm] = useState({ currentPassword: '', newPassword: '', confirmPassword: '' });
+  const [passwordLoading, setPasswordLoading] = useState(false);
+  const [passwordMsg, setPasswordMsg] = useState({ type: '', text: '' });
+
   // ── Auth session ─────────────────────────────────────────────────────────────
   useEffect(() => {
     if (token) {
@@ -433,6 +438,42 @@ const AdminDashboard = ({ isOpen, onClose, onProjectUpdated, onSkillsUpdated }) 
     }
   }, []);
 
+  // ── Password Change Handler ──────────────────────────────────────────────────
+  const handleChangePassword = async (e) => {
+    e.preventDefault();
+    setPasswordMsg({ type: '', text: '' });
+
+    if (passwordForm.newPassword !== passwordForm.confirmPassword) {
+      setPasswordMsg({ type: 'error', text: 'New password and confirmation do not match.' });
+      return;
+    }
+
+    if (passwordForm.newPassword.length < 6) {
+      setPasswordMsg({ type: 'error', text: 'New password must be at least 6 characters long.' });
+      return;
+    }
+
+    setPasswordLoading(true);
+    try {
+      const res = await authAPI.changePassword({
+        currentPassword: passwordForm.currentPassword,
+        newPassword: passwordForm.newPassword,
+      });
+      setPasswordMsg({
+        type: 'success',
+        text: res.data.message || 'Admin security password changed successfully!',
+      });
+      setPasswordForm({ currentPassword: '', newPassword: '', confirmPassword: '' });
+    } catch (err) {
+      setPasswordMsg({
+        type: 'error',
+        text: err.message || 'Failed to change admin password. Verify current password.',
+      });
+    } finally {
+      setPasswordLoading(false);
+    }
+  };
+
   // ── Messages ──────────────────────────────────────────────────────────────────
   const handleDeleteMessage = async (id) => {
     try { await contactAPI.delete(id); loadAll(); }
@@ -535,6 +576,7 @@ const AdminDashboard = ({ isOpen, onClose, onProjectUpdated, onSkillsUpdated }) 
                 )}
                 <Tab id="skills" label="Skills" count={skillsList.length} icon={Code} />
                 <Tab id="profile" label="Profile" icon={User} />
+                <Tab id="security" label="Security" icon={Lock} />
                 <Tab id="messages" label="Inbox" count={messagesList.length} icon={Mail} />
               </div>
               <button onClick={handleLogout}
@@ -828,6 +870,84 @@ const AdminDashboard = ({ isOpen, onClose, onProjectUpdated, onSkillsUpdated }) 
                     <button type="submit"
                       className="w-full py-3 rounded bg-cyber-cyan text-black font-orbitron font-bold text-xs uppercase tracking-wider shadow-glow-cyan hover:bg-white transition-all neo-clip flex items-center justify-center gap-2">
                       <Save className="w-4 h-4" /> Save Profile Changes
+                    </button>
+                  </form>
+                </div>
+              )}
+
+              {/* ═══════════════════ SECURITY & PASSWORD TAB ═══════════════════ */}
+              {activeTab === 'security' && (
+                <div className="max-w-xl mx-auto">
+                  <SectionHeader
+                    title="ADMIN CREDENTIAL SECURITY"
+                    subtitle="Update system admin access credentials stored in MongoDB database"
+                  />
+                  <StatusBanner msg={passwordMsg} />
+
+                  <form onSubmit={handleChangePassword} className="space-y-4">
+                    <div>
+                      <label className="block text-xs font-orbitron text-cyber-cyan mb-1.5 flex items-center gap-1.5">
+                        <Key className="w-3.5 h-3.5 text-cyber-pink" /> Current Passcode *
+                      </label>
+                      <input
+                        type="password"
+                        required
+                        value={passwordForm.currentPassword}
+                        onChange={e => setPasswordForm(p => ({ ...p, currentPassword: e.target.value }))}
+                        placeholder="••••••••••••"
+                        className={INPUT}
+                      />
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-xs font-orbitron text-cyber-cyan mb-1.5 flex items-center gap-1.5">
+                          <Lock className="w-3.5 h-3.5 text-cyber-cyan" /> New Passcode *
+                        </label>
+                        <input
+                          type="password"
+                          required
+                          value={passwordForm.newPassword}
+                          onChange={e => setPasswordForm(p => ({ ...p, newPassword: e.target.value }))}
+                          placeholder="Min 6 characters"
+                          className={INPUT}
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-orbitron text-cyber-cyan mb-1.5 flex items-center gap-1.5">
+                          <Lock className="w-3.5 h-3.5 text-cyber-cyan" /> Confirm Passcode *
+                        </label>
+                        <input
+                          type="password"
+                          required
+                          value={passwordForm.confirmPassword}
+                          onChange={e => setPasswordForm(p => ({ ...p, confirmPassword: e.target.value }))}
+                          placeholder="Repeat new passcode"
+                          className={INPUT}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="p-3 rounded border border-cyber-cyan/30 bg-cyber-cyan/5 text-[11px] font-mono text-gray-300">
+                      ℹ New password will be salted & hashed using bcrypt in MongoDB Atlas. Future admin logins will require this updated password.
+                    </div>
+
+                    <button
+                      type="submit"
+                      disabled={passwordLoading}
+                      className="w-full py-3 rounded bg-cyber-pink text-black font-orbitron font-bold text-xs uppercase tracking-wider hover:bg-white transition-all shadow-glow-pink flex items-center justify-center gap-2 neo-clip disabled:opacity-50"
+                    >
+                      {passwordLoading ? (
+                        <>
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                          <span>UPDATING PASSCODE...</span>
+                        </>
+                      ) : (
+                        <>
+                          <Shield className="w-4 h-4" />
+                          <span>CHANGE ADMIN PASSWORD</span>
+                        </>
+                      )}
                     </button>
                   </form>
                 </div>
