@@ -110,7 +110,9 @@ const Hero = ({ onHireClick }) => {
             Hire Me / Transmit Inquiry
           </a>
           <a
-            href="mailto:goutamgupta605@gmail.com"
+            href="/Goutam_Gupta_Resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex items-center gap-2 px-6 py-3 rounded border border-cyber-pink text-cyber-pink font-orbitron font-bold text-xs uppercase tracking-wider shadow-glow-pink hover:bg-cyber-pink hover:text-black transition-all neo-clip"
           >
             <Download className="w-4 h-4" />
