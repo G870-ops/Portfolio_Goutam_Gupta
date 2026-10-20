@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, Github, Linkedin, Download, Send, CheckCircle2 } from 'lucide-react';
+import { Mail, Phone, Github, Linkedin, Download, Send, CheckCircle2, FileText } from 'lucide-react';
 import profileImage from '../assets/profile.jpg';
 
 const titles = [
@@ -116,7 +116,15 @@ const Hero = ({ onHireClick }) => {
             className="flex items-center gap-2 px-6 py-3 rounded border border-cyber-pink text-cyber-pink font-orbitron font-bold text-xs uppercase tracking-wider shadow-glow-pink hover:bg-cyber-pink hover:text-black transition-all neo-clip"
           >
             <Download className="w-4 h-4" />
-            Request Resume Dossier
+            Resume PDF (ATS)
+          </a>
+          <a
+            href="/Goutam_Gupta_Resume.docx"
+            download="Goutam_Gupta_Resume.docx"
+            className="flex items-center gap-2 px-6 py-3 rounded border border-cyber-cyan/50 text-cyber-cyan font-orbitron font-bold text-xs uppercase tracking-wider shadow-glow-cyan hover:bg-cyber-cyan hover:text-black transition-all neo-clip"
+          >
+            <FileText className="w-4 h-4" />
+            Resume DOCS (Word)
           </a>
         </motion.div>
 
