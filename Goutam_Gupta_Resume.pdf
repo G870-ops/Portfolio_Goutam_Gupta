@@ -4,540 +4,799 @@
 << /Type /Catalog /Pages 2 0 R >>
 endobj
 2 0 obj
-<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+<< /Type /Pages /Kids [3 0 R 4 0 R] /Count 2 >>
 endobj
 3 0 obj
 <<
   /Type /Page
   /Parent 2 0 R
   /MediaBox [0 0 595 842]
-  /Contents 6 0 R
+  /Contents 7 0 R
   /Resources <<
     /Font <<
-      /F1 4 0 R
-      /F2 5 0 R
+      /F1 5 0 R
+      /F2 6 0 R
     >>
   >>
 >>
 endobj
 4 0 obj
-<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+<<
+  /Type /Page
+  /Parent 2 0 R
+  /MediaBox [0 0 595 842]
+  /Contents 8 0 R
+  /Resources <<
+    /Font <<
+      /F1 5 0 R
+      /F2 6 0 R
+    >>
+  >>
+>>
 endobj
 5 0 obj
-<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
 endobj
 6 0 obj
-<< /Length 10514 >>
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+7 0 obj
+<< /Length 7235 >>
 stream
-0.04 0.15 0.25 rg
-0.04 0.15 0.25 RG
+0 0 0 rg
+0 0 0 RG
 BT
 /F2 18 Tf
-40 805 Td
+234.86 808 Td
 (GOUTAM GUPTA) Tj
 ET
-0.12 0.38 0.57 rg
-0.12 0.38 0.57 RG
+0.08 0.25 0.45 rg
+0.08 0.25 0.45 RG
 BT
-/F2 10 Tf
-40 791 Td
+/F2 9.5 Tf
+162.505 795 Td
 (Full-Stack MERN Architect & Android App Developer) Tj
 ET
-0.25 0.25 0.25 rg
-0.25 0.25 0.25 RG
+0.2 0.2 0.2 rg
+0.2 0.2 0.2 RG
 BT
 /F1 8 Tf
-40 778 Td
-(Kolkata, WB | +91 8343957187 | goutamgupta605@gmail.com | linkedin.com/in/goutam-gupta | github.com/G870-ops) Tj
+141.5 783 Td
+(Asansol, WB, India | +91 8343957187 | Gmail.com | linkedin.com | github.com) Tj
 ET
-0.12 0.38 0.57 rg
-0.12 0.38 0.57 RG
-1.2 w
-40 771 m
-555 771 l
-S
-0.04 0.15 0.25 rg
-0.04 0.15 0.25 RG
+0.04 0.15 0.28 rg
+0.04 0.15 0.28 RG
 BT
-/F2 10.5 Tf
-40 759 Td
+/F2 10 Tf
+38 769 Td
 (PROFESSIONAL SUMMARY) Tj
 ET
-0.12 0.38 0.57 rg
-0.12 0.38 0.57 RG
-0.8 w
-40 756 m
-555 756 l
+0.12 0.35 0.55 rg
+0.12 0.35 0.55 RG
+0.75 w
+38 766 m
+557 766 l
 S
-0.2 0.2 0.2 rg
-0.2 0.2 0.2 RG
+0.15 0.15 0.15 rg
+0.15 0.15 0.15 RG
 BT
-/F1 8 Tf
-40 746 Td
-(Innovative Full-Stack MERN Architect and Native Android Developer with proven expertise in building scalable, real-time web applications,) Tj
+/F1 7.7 Tf
+38 756.5 Td
+(Proactive and results-driven Full-Stack MERN Architect and Android Application Developer with a strong track record of) Tj
 ET
 BT
-/F1 8 Tf
-40 736 Td
-(low-latency WebSocket engines, and edge AI mobile systems. Proficient in React.js, Node.js, Express, MongoDB, Java, Kotlin, and Gemini AI.) Tj
+/F1 7.7 Tf
+38 747 Td
+(engineering scalable web applications, low-latency microservices, and high-performance native Android solutions. Proficient) Tj
 ET
 BT
-/F1 8 Tf
-40 726 Td
-(Demonstrated success architecting microservices, RESTful APIs, role-based security architectures, and automated financial/educational pipelines) Tj
+/F1 7.7 Tf
+38 737.5 Td
+(across modern JavaScript ecosystems \(React.js, Node.js, Express, MongoDB Atlas\) and native mobile frameworks \(Java, Kotlin,) Tj
 ET
 BT
-/F1 8 Tf
-40 716 Td
-(with a strong commitment to clean code principles, high-performance rendering, and seamless cloud deployments.) Tj
+/F1 7.7 Tf
+38 728 Td
+(Android SDK\). Experienced in building real-time multiplayer WebSocket engines, AI-powered systems \(Gemini AI, TFLite\), and) Tj
 ET
-0.04 0.15 0.25 rg
-0.04 0.15 0.25 RG
 BT
-/F2 10.5 Tf
-40 704 Td
-(TECHNICAL SKILLS MATRIX) Tj
+/F1 7.7 Tf
+38 718.5 Td
+(secure enterprise authentication \(JWT, Nodemailer\). Committed to clean architectural patterns, robust API design, and intuitive) Tj
 ET
-0.12 0.38 0.57 rg
-0.12 0.38 0.57 RG
-0.8 w
-40 701 m
-555 701 l
+BT
+/F1 7.7 Tf
+38 709 Td
+(user experiences.) Tj
+ET
+0.04 0.15 0.28 rg
+0.04 0.15 0.28 RG
+BT
+/F2 10 Tf
+38 696.5 Td
+(TECHNICAL SKILLS) Tj
+ET
+0.12 0.35 0.55 rg
+0.12 0.35 0.55 RG
+0.75 w
+38 693.5 m
+557 693.5 l
 S
-0.08 0.08 0.08 rg
-0.08 0.08 0.08 RG
+0.05 0.05 0.05 rg
+0.05 0.05 0.05 RG
 BT
-/F2 8 Tf
-43 691 Td
+/F2 7.8 Tf
+41 684 Td
 (•  Frontend Engineering:) Tj
 ET
-0.22 0.22 0.22 rg
-0.22 0.22 0.22 RG
+0.2 0.2 0.2 rg
+0.2 0.2 0.2 RG
 BT
-/F1 8 Tf
-160 691 Td
-(React.js, Vite, JavaScript \(ES6+\), HTML5, CSS3, Tailwind CSS, Bootstrap, Responsive UI/UX) Tj
+/F1 7.8 Tf
+153 684 Td
+(React.js, Vite, JavaScript \(ES6+\), HTML5, CSS3, Tailwind CSS, Bootstrap, Responsive UI/UX Design) Tj
 ET
-0.08 0.08 0.08 rg
-0.08 0.08 0.08 RG
+0.05 0.05 0.05 rg
+0.05 0.05 0.05 RG
 BT
-/F2 8 Tf
-43 680.5 Td
+/F2 7.8 Tf
+41 674 Td
 (•  Backend & APIs:) Tj
 ET
-0.22 0.22 0.22 rg
-0.22 0.22 0.22 RG
+0.2 0.2 0.2 rg
+0.2 0.2 0.2 RG
 BT
-/F1 8 Tf
-160 680.5 Td
-(Node.js, Express.js, RESTful APIs, JWT Authentication, Nodemailer, WebSocket, Microservices, PHP) Tj
+/F1 7.8 Tf
+153 674 Td
+(Node.js, Express.js, RESTful APIs, JWT Authentication, Nodemailer, WebSocket.) Tj
 ET
-0.08 0.08 0.08 rg
-0.08 0.08 0.08 RG
+0.05 0.05 0.05 rg
+0.05 0.05 0.05 RG
 BT
-/F2 8 Tf
-43 670 Td
+/F2 7.8 Tf
+41 664 Td
 (•  Mobile & Edge AI:) Tj
 ET
-0.22 0.22 0.22 rg
-0.22 0.22 0.22 RG
+0.2 0.2 0.2 rg
+0.2 0.2 0.2 RG
 BT
-/F1 8 Tf
-160 670 Td
+/F1 7.8 Tf
+153 664 Td
 (Android Studio, Java, Kotlin, Android SDK, Material 3, MPAndroidChart, Firebase, TFLite, OpenCV) Tj
 ET
-0.08 0.08 0.08 rg
-0.08 0.08 0.08 RG
+0.05 0.05 0.05 rg
+0.05 0.05 0.05 RG
 BT
-/F2 8 Tf
-43 659.5 Td
-(•  Database Systems:) Tj
+/F2 7.8 Tf
+41 654 Td
+(•  Database Management:) Tj
 ET
-0.22 0.22 0.22 rg
-0.22 0.22 0.22 RG
+0.2 0.2 0.2 rg
+0.2 0.2 0.2 RG
 BT
-/F1 8 Tf
-160 659.5 Td
-(MongoDB Atlas, MySQL, NoSQL Document Design, Relational Database Modeling, Schema Optimization) Tj
+/F1 7.8 Tf
+153 654 Td
+(MongoDB Atlas,) Tj
 ET
-0.08 0.08 0.08 rg
-0.08 0.08 0.08 RG
+0.05 0.05 0.05 rg
+0.05 0.05 0.05 RG
 BT
-/F2 8 Tf
-43 649 Td
+/F2 7.8 Tf
+41 644 Td
 (•  Tools & Integrations:) Tj
 ET
-0.22 0.22 0.22 rg
-0.22 0.22 0.22 RG
+0.2 0.2 0.2 rg
+0.2 0.2 0.2 RG
 BT
-/F1 8 Tf
-160 649 Td
-(Git, GitHub, VS Code, Postman, Linux/WSL, Stripe API, Google Gemini AI, Agile Development) Tj
+/F1 7.8 Tf
+153 644 Td
+(Git, GitHub, VS Code, Postman, Stripe API, Gemini API) Tj
 ET
-0.04 0.15 0.25 rg
-0.04 0.15 0.25 RG
+0.04 0.15 0.28 rg
+0.04 0.15 0.28 RG
 BT
-/F2 10.5 Tf
-40 636.5 Td
+/F2 10 Tf
+38 631 Td
 (FEATURED ENGINEERING PROJECTS) Tj
 ET
-0.12 0.38 0.57 rg
-0.12 0.38 0.57 RG
-0.8 w
-40 633.5 m
-555 633.5 l
+0.12 0.35 0.55 rg
+0.12 0.35 0.55 RG
+0.75 w
+38 628 m
+557 628 l
 S
-0.04 0.15 0.25 rg
-0.04 0.15 0.25 RG
+0.04 0.15 0.28 rg
+0.04 0.15 0.28 RG
 BT
-/F2 9.5 Tf
-40 623.5 Td
+/F2 8.8 Tf
+38 618.5 Td
 (School Management System) Tj
 ET
-0.4 0.4 0.4 rg
-0.4 0.4 0.4 RG
-BT
-/F1 8 Tf
-240 623.5 Td
-(  |  Full Stack Web Platform) Tj
-ET
-0.12 0.38 0.57 rg
-0.12 0.38 0.57 RG
+0.35 0.35 0.35 rg
+0.35 0.35 0.35 RG
 BT
 /F1 7.5 Tf
-44 613.5 Td
-([ Live Demo: https://school-management-system-lyart-zeta.vercel.app/login  |  Source: https://github.com/G870-ops/School-Management-System ]) Tj
+158 618.5 Td
+( | Full Stack Web Platform) Tj
 ET
-0.2 0.2 0.2 rg
-0.2 0.2 0.2 RG
+0.3 0.3 0.3 rg
+0.3 0.3 0.3 RG
 BT
-/F1 7.8 Tf
-46 603.5 Td
-(•  Architected an enterprise School Management System with role-based access control for Admins, Teachers, Students, and Parents.) Tj
-ET
-BT
-/F1 7.8 Tf
-46 594 Td
-(•  Engineered robust JWT authentication, Bcrypt password encryption, and Nodemailer OTP verification for secure login sessions.) Tj
+/F2 7.5 Tf
+38 609.5 Td
+(Tech Stack: ) Tj
 ET
 BT
-/F1 7.8 Tf
-46 584.5 Td
-(•  Integrated AI-powered automated notification and fee reminders utilizing the Google Gemini API with real-time academic records.) Tj
+/F1 7.5 Tf
+84 609.5 Td
+(React.js, Node.js, Express.js, MongoDB Atlas, Tailwind CSS, JWT, Nodemailer, Gemini AI  ) Tj
 ET
-0.04 0.15 0.25 rg
-0.04 0.15 0.25 RG
+0.08 0.35 0.6 rg
+0.08 0.35 0.6 RG
 BT
-/F2 9.5 Tf
-40 573 Td
+/F1 7.5 Tf
+402.2 609.5 Td
+([ Live Demo    Source Code ]) Tj
+ET
+0.18 0.18 0.18 rg
+0.18 0.18 0.18 RG
+BT
+/F1 7.5 Tf
+43 600.5 Td
+(•  Architected enterprise-grade school management platform with role-based access control \(Admin, Teachers, Students, Parents\).) Tj
+ET
+BT
+/F1 7.5 Tf
+43 591.7 Td
+(•  Engineered secure JWT authentication, Bcrypt password hashing, and Nodemailer OTP email verification workflows.) Tj
+ET
+BT
+/F1 7.5 Tf
+43 582.9000000000001 Td
+(•  Integrated AI-powered fee notification & reminder engine utilizing Google Gemini API with automated student progress tracking modules.) Tj
+ET
+0.04 0.15 0.28 rg
+0.04 0.15 0.28 RG
+BT
+/F2 8.8 Tf
+38 572.1000000000001 Td
 (Neo Chess - Real-Time Multiplayer Engine) Tj
 ET
-0.4 0.4 0.4 rg
-0.4 0.4 0.4 RG
-BT
-/F1 8 Tf
-240 573 Td
-(  |  Mobile & WebSocket Engine) Tj
-ET
-0.12 0.38 0.57 rg
-0.12 0.38 0.57 RG
+0.35 0.35 0.35 rg
+0.35 0.35 0.35 RG
 BT
 /F1 7.5 Tf
-44 563 Td
-([ Install APK: https://github.com/G870-ops/NEO_CHESS_GAME_APP/releases/download/v1.0.0/chess.apk  |  Source: https://github.com/G870-ops/NEO_CHESS_GAME_APP ]) Tj
+238 572.1000000000001 Td
+( | Mobile & WebSocket Engine) Tj
 ET
-0.2 0.2 0.2 rg
-0.2 0.2 0.2 RG
+0.3 0.3 0.3 rg
+0.3 0.3 0.3 RG
 BT
-/F1 7.8 Tf
-46 553 Td
-(•  Engineered a real-time multiplayer chess platform combining a native Android wrapper with a low-latency web game engine.) Tj
-ET
-BT
-/F1 7.8 Tf
-46 543.5 Td
-(•  Built Node.js WebSocket backend server handling concurrent player matchmaking, move synchronizations, and turn rule validations.) Tj
+/F2 7.5 Tf
+38 563.1000000000001 Td
+(Tech Stack: ) Tj
 ET
 BT
-/F1 7.8 Tf
-46 534 Td
-(•  Distributed standalone Android APK package with zero-latency board responsiveness and cross-device match sessions.) Tj
+/F1 7.5 Tf
+84 563.1000000000001 Td
+(Android Studio, Java, JavaScript, Node.js, Express, WebSocket, HTML5, CSS3  ) Tj
 ET
-0.04 0.15 0.25 rg
-0.04 0.15 0.25 RG
+0.08 0.35 0.6 rg
+0.08 0.35 0.6 RG
 BT
-/F2 9.5 Tf
-40 522.5 Td
+/F1 7.5 Tf
+357.8 563.1000000000001 Td
+([ Download APK    Source Code ]) Tj
+ET
+0.18 0.18 0.18 rg
+0.18 0.18 0.18 RG
+BT
+/F1 7.5 Tf
+43 554.1000000000001 Td
+(•  Developed real-time multiplayer chess game with native Android wrapper and high-performance embedded web execution layer.) Tj
+ET
+BT
+/F1 7.5 Tf
+43 545.3000000000002 Td
+(•  Engineered Node.js WebSocket backend server achieving sub-30ms player matchmaking, live move synchronization, and turn validation.) Tj
+ET
+BT
+/F1 7.5 Tf
+43 536.5000000000002 Td
+(•  Released standalone Android APK distribution package with offline fallback modes and zero-lag board rendering.) Tj
+ET
+0.04 0.15 0.28 rg
+0.04 0.15 0.28 RG
+BT
+/F2 8.8 Tf
+38 525.7000000000003 Td
 (Cow Business - AI Dairy Farm Calculator) Tj
 ET
-0.4 0.4 0.4 rg
-0.4 0.4 0.4 RG
-BT
-/F1 8 Tf
-240 522.5 Td
-(  |  Android Fintech & Analytics App) Tj
-ET
-0.12 0.38 0.57 rg
-0.12 0.38 0.57 RG
+0.35 0.35 0.35 rg
+0.35 0.35 0.35 RG
 BT
 /F1 7.5 Tf
-44 512.5 Td
-([ Install APK: https://github.com/G870-ops/Cow_Business_App/releases/download/v1.0.0/cow_business.apk  |  Source: https://github.com/G870-ops/Cow_Business_App ]) Tj
+233 525.7000000000003 Td
+( | Android Fintech & Analytics App) Tj
 ET
-0.2 0.2 0.2 rg
-0.2 0.2 0.2 RG
+0.3 0.3 0.3 rg
+0.3 0.3 0.3 RG
 BT
-/F1 7.8 Tf
-46 502.5 Td
-(•  Developed native Android agribusiness application to calculate, forecast, and optimize dairy farm commercial profitability.) Tj
-ET
-BT
-/F1 7.8 Tf
-46 493 Td
-(•  Implemented reducing-balance loan EMI calculation algorithms and interactive visual cashflow charts using MPAndroidChart.) Tj
+/F2 7.5 Tf
+38 516.7000000000003 Td
+(Tech Stack: ) Tj
 ET
 BT
-/F1 7.8 Tf
-46 483.5 Td
-(•  Integrated an automated PDF document generator \(PdfDocument\) for exporting and sharing comprehensive business yield reports.) Tj
+/F1 7.5 Tf
+84 516.7000000000003 Td
+(Java, Android SDK, Material 3, MPAndroidChart, PdfDocument, SharedPreferences, XML  ) Tj
 ET
-0.04 0.15 0.25 rg
-0.04 0.15 0.25 RG
+0.08 0.35 0.6 rg
+0.08 0.35 0.6 RG
 BT
-/F2 9.5 Tf
-40 472 Td
+/F1 7.5 Tf
+387.40000000000003 516.7000000000003 Td
+([ Download APK    Source Code ]) Tj
+ET
+0.18 0.18 0.18 rg
+0.18 0.18 0.18 RG
+BT
+/F1 7.5 Tf
+43 507.7000000000003 Td
+(•  Created specialized native Android agricultural finance application for yield forecasting and dairy farm profitability analysis.) Tj
+ET
+BT
+/F1 7.5 Tf
+43 498.90000000000026 Td
+(•  Implemented reducing-balance loan EMI calculation algorithms and interactive visual cashflow graphs using MPAndroidChart.) Tj
+ET
+BT
+/F1 7.5 Tf
+43 490.10000000000025 Td
+(•  Engineered automated PDF export generator \(PdfDocument\) enabling farmers to save and share comprehensive business dossiers.) Tj
+ET
+0.04 0.15 0.28 rg
+0.04 0.15 0.28 RG
+BT
+/F2 8.8 Tf
+38 479.30000000000024 Td
 (Sci-Fi Scientific Calculator) Tj
 ET
-0.4 0.4 0.4 rg
-0.4 0.4 0.4 RG
-BT
-/F1 8 Tf
-240 472 Td
-(  |  Native Android Application) Tj
-ET
-0.12 0.38 0.57 rg
-0.12 0.38 0.57 RG
+0.35 0.35 0.35 rg
+0.35 0.35 0.35 RG
 BT
 /F1 7.5 Tf
-44 462 Td
-([ Install APK: https://github.com/G870-ops/Scientifc_calculator_project/releases/download/v1.0.0/Scie.Cal.apk  |  Source: https://github.com/G870-ops/Scientifc_calculator_project ]) Tj
+178 479.30000000000024 Td
+( | Native Android Calculator Application) Tj
 ET
-0.2 0.2 0.2 rg
-0.2 0.2 0.2 RG
+0.3 0.3 0.3 rg
+0.3 0.3 0.3 RG
 BT
-/F1 7.8 Tf
-46 452 Td
-(•  Engineered advanced Android scientific calculator featuring an interstellar cyberpunk UI, matrix solvers, and complex equations.) Tj
-ET
-BT
-/F1 7.8 Tf
-46 442.5 Td
-(•  Programmed custom Java/Kotlin BigDecimal mathematical precision core preventing floating-point inaccuracies in conversions.) Tj
+/F2 7.5 Tf
+38 470.30000000000024 Td
+(Tech Stack: ) Tj
 ET
 BT
-/F1 7.8 Tf
-46 433 Td
-(•  Packaged and distributed production-ready Android APK with built-in physics constants and mathematical reference tables.) Tj
+/F1 7.5 Tf
+84 470.30000000000024 Td
+(Kotlin, Android SDK, XML Layouts, Material 3, Gradle, Git, BigDecimal Precision Engine  ) Tj
 ET
-0.04 0.15 0.25 rg
-0.04 0.15 0.25 RG
+0.08 0.35 0.6 rg
+0.08 0.35 0.6 RG
 BT
-/F2 9.5 Tf
-40 421.5 Td
+/F1 7.5 Tf
+402.2 470.30000000000024 Td
+([ Download APK    Source Code ]) Tj
+ET
+0.18 0.18 0.18 rg
+0.18 0.18 0.18 RG
+BT
+/F1 7.5 Tf
+43 461.30000000000024 Td
+(•  Built advanced native Android calculator with cyberpunk interstellar neon UI theme, matrix solvers, and complex equations.) Tj
+ET
+BT
+/F1 7.5 Tf
+43 452.5000000000002 Td
+(•  Engineered custom Java/Kotlin BigDecimal mathematical precision core preventing floating-point inaccuracies during multi-step conversions.) Tj
+ET
+BT
+/F1 7.5 Tf
+43 443.7000000000002 Td
+(•  Implemented built-in physics/math formula cheatsheets and released optimized native APK on GitHub Releases.) Tj
+ET
+endstream
+endobj
+8 0 obj
+<< /Length 7567 >>
+stream
+0.04 0.15 0.28 rg
+0.04 0.15 0.28 RG
+BT
+/F2 8.8 Tf
+38 808 Td
 (Invitor \(Event Booking\) Website) Tj
 ET
-0.4 0.4 0.4 rg
-0.4 0.4 0.4 RG
-BT
-/F1 8 Tf
-240 421.5 Td
-(  |  Full Stack Event Management) Tj
-ET
-0.12 0.38 0.57 rg
-0.12 0.38 0.57 RG
+0.35 0.35 0.35 rg
+0.35 0.35 0.35 RG
 BT
 /F1 7.5 Tf
-44 411.5 Td
-([ Live Demo: https://event-booking-web-app-seven.vercel.app/  |  Source: https://github.com/G870-ops/Event_Booking_WebApp ]) Tj
+193 808 Td
+( | Full Stack Event Management) Tj
 ET
-0.2 0.2 0.2 rg
-0.2 0.2 0.2 RG
+0.3 0.3 0.3 rg
+0.3 0.3 0.3 RG
 BT
-/F1 7.8 Tf
-46 401.5 Td
-(•  Developed a modern Event Booking management web platform featuring dynamic role-based administrative and client dashboards.) Tj
-ET
-BT
-/F1 7.8 Tf
-46 392 Td
-(•  Constructed a high-velocity responsive interface with Tailwind CSS and Vite for optimized performance across devices.) Tj
+/F2 7.5 Tf
+38 799 Td
+(Tech Stack: ) Tj
 ET
 BT
-/F1 7.8 Tf
-46 382.5 Td
-(•  Conducted automated API testing and validation with Postman collections to ensure zero-regression backend communications.) Tj
+/F1 7.5 Tf
+84 799 Td
+(React.js, Vite, Tailwind CSS, RESTful APIs, Postman API Testing  ) Tj
 ET
-0.04 0.15 0.25 rg
-0.04 0.15 0.25 RG
+0.08 0.35 0.6 rg
+0.08 0.35 0.6 RG
 BT
-/F2 9.5 Tf
-40 371 Td
+/F1 7.5 Tf
+317.1 799 Td
+([ Live Demo    Source Code ]) Tj
+ET
+0.18 0.18 0.18 rg
+0.18 0.18 0.18 RG
+BT
+/F1 7.5 Tf
+43 790 Td
+(•  Built full-stack Event Booking and Ticketing management platform featuring dynamic role-based dashboards.) Tj
+ET
+BT
+/F1 7.5 Tf
+43 781.2 Td
+(•  Designed responsive cyberpunk-tailored interface using Tailwind CSS and high-velocity Vite build pipeline.) Tj
+ET
+BT
+/F1 7.5 Tf
+43 772.4000000000001 Td
+(•  Verified and audited end-to-end REST API communication with structured Postman collections for seamless reliability.) Tj
+ET
+0.04 0.15 0.28 rg
+0.04 0.15 0.28 RG
+BT
+/F2 8.8 Tf
+38 761.6000000000001 Td
 (Full Stack Food Delivery Website) Tj
 ET
+0.35 0.35 0.35 rg
+0.35 0.35 0.35 RG
+BT
+/F1 7.5 Tf
+198 761.6000000000001 Td
+( | Full Stack MERN Platform) Tj
+ET
+0.3 0.3 0.3 rg
+0.3 0.3 0.3 RG
+BT
+/F2 7.5 Tf
+38 752.6000000000001 Td
+(Tech Stack: ) Tj
+ET
+BT
+/F1 7.5 Tf
+84 752.6000000000001 Td
+(React.js, Node.js, Express, MongoDB Atlas, Stripe Payment Gateway, Tailwind CSS  ) Tj
+ET
+0.08 0.35 0.6 rg
+0.08 0.35 0.6 RG
+BT
+/F1 7.5 Tf
+376.3 752.6000000000001 Td
+([ Live Demo    Source Code ]) Tj
+ET
+0.18 0.18 0.18 rg
+0.18 0.18 0.18 RG
+BT
+/F1 7.5 Tf
+43 743.6000000000001 Td
+(•  Developed end-to-end online food ordering application with live telemetry order status tracking and responsive user carts.) Tj
+ET
+BT
+/F1 7.5 Tf
+43 734.8000000000002 Td
+(•  Integrated Stripe payment gateway for encrypted online financial transactions with webhook-driven order fulfillment.) Tj
+ET
+BT
+/F1 7.5 Tf
+43 726.0000000000002 Td
+(•  Architected scalable backend REST APIs using Express.js and MongoDB aggregation queries for food catalog filtering.) Tj
+ET
+0.04 0.15 0.28 rg
+0.04 0.15 0.28 RG
+BT
+/F2 10 Tf
+38 712.2000000000003 Td
+(EDUCATION) Tj
+ET
+0.12 0.35 0.55 rg
+0.12 0.35 0.55 RG
+0.75 w
+38 709.2000000000003 m
+557 709.2000000000003 l
+S
+0.08 0.32 0.58 rg
+0.08 0.32 0.58 RG
+BT
+/F2 8 Tf
+38 699.7000000000003 Td
+(Bachelor of Technology \(B.Tech\) - Information Technology) Tj
+ET
+0.35 0.35 0.35 rg
+0.35 0.35 0.35 RG
+BT
+/F1 7.5 Tf
+295.59999999999997 699.7000000000003 Td
+( \(2023 - 2026\)) Tj
+ET
+0.2 0.2 0.2 rg
+0.2 0.2 0.2 RG
+BT
+/F1 7.5 Tf
+38 691.2000000000003 Td
+(Kalyani Government Engineering College \(KGEC / MAKAUT\) — Score: 6.61 CGPA) Tj
+ET
+0.08 0.32 0.58 rg
+0.08 0.32 0.58 RG
+BT
+/F2 8 Tf
+38 681.7000000000003 Td
+(Diploma in Electronics & Telecommunication Engineering \(ETCE\)) Tj
+ET
+0.35 0.35 0.35 rg
+0.35 0.35 0.35 RG
+BT
+/F1 7.5 Tf
+318.59999999999997 681.7000000000003 Td
+( \(2020 - 2023\)) Tj
+ET
+0.2 0.2 0.2 rg
+0.2 0.2 0.2 RG
+BT
+/F1 7.5 Tf
+38 673.2000000000003 Td
+(Purulia Polytechnic \(W.B.S.C.T.E\) — Score: 79.9% Aggregate) Tj
+ET
+0.08 0.32 0.58 rg
+0.08 0.32 0.58 RG
+BT
+/F2 8 Tf
+38 663.7000000000003 Td
+(Higher Secondary Education \(10+2\)) Tj
+ET
+0.35 0.35 0.35 rg
+0.35 0.35 0.35 RG
+BT
+/F1 7.5 Tf
+189.79999999999998 663.7000000000003 Td
+( \(2018 - 2020\)) Tj
+ET
+0.2 0.2 0.2 rg
+0.2 0.2 0.2 RG
+BT
+/F1 7.5 Tf
+38 655.2000000000003 Td
+(Sodepur Colliery High School \(W.B.C.H.S.E\) — Score: 84.4%) Tj
+ET
+0.08 0.32 0.58 rg
+0.08 0.32 0.58 RG
+BT
+/F2 8 Tf
+38 645.7000000000003 Td
+(Secondary School Education \(10th Standard\)) Tj
+ET
+0.35 0.35 0.35 rg
+0.35 0.35 0.35 RG
+BT
+/F1 7.5 Tf
+231.2 645.7000000000003 Td
+( \(2018\)) Tj
+ET
+0.2 0.2 0.2 rg
+0.2 0.2 0.2 RG
+BT
+/F1 7.5 Tf
+38 637.2000000000003 Td
+(Sodepur Colliery High School \(W.B.B.S.E\) — Score: 59.86%) Tj
+ET
+0.04 0.15 0.28 rg
+0.04 0.15 0.28 RG
+BT
+/F2 10 Tf
+38 624.7000000000003 Td
+(HONORS, RANKINGS & CERTIFICATIONS) Tj
+ET
+0.12 0.35 0.55 rg
+0.12 0.35 0.55 RG
+0.75 w
+38 621.7000000000003 m
+557 621.7000000000003 l
+S
+0.18 0.18 0.18 rg
+0.18 0.18 0.18 RG
+BT
+/F1 7.6 Tf
+42 612.2000000000003 Td
+(•  WBJELET State Joint Entrance Examination: General Rank 170 | OBC Rank 26 \(Top Tier State Placement\).) Tj
+ET
+BT
+/F1 7.6 Tf
+42 603.4000000000003 Td
+(•  Robo Fight Competition: 3rd Position Trophy representing Purulia Polytechnic in tactical robotics warfare.) Tj
+ET
+BT
+/F1 7.6 Tf
+42 594.6000000000004 Td
+(•  Open-Source Community: Regularly mentor junior peers in Android SDK configuration, React frontend patterns, and REST API design.) Tj
+ET
+BT
+/F1 7.6 Tf
+42 585.8000000000004 Td
+(•  Domestic Data Entry Operator \(DDEO\): Certified in database operational maintenance and speed typing.) Tj
+ET
+0.1 0.1 0.1 rg
+0.1 0.1 0.1 RG
+BT
+/F2 7.8 Tf
+42 574.0000000000005 Td
+(•  Spring Framework for Java Developers: Practical Guide) Tj
+ET
+0.3 0.3 0.3 rg
+0.3 0.3 0.3 RG
+BT
+/F2 7.5 Tf
+492 574.0000000000005 Td
+(March 17, 2025) Tj
+ET
 0.4 0.4 0.4 rg
 0.4 0.4 0.4 RG
 BT
-/F1 8 Tf
-240 371 Td
-(  |  Full Stack MERN Platform) Tj
-ET
-0.12 0.38 0.57 rg
-0.12 0.38 0.57 RG
-BT
-/F1 7.5 Tf
-44 361 Td
-([ Live Demo: https://food-dev-frontend.vercel.app/  |  Source: https://github.com/G870-ops/FOOD_DEV_FRONTEND ]) Tj
+/F1 7 Tf
+50 565.5000000000005 Td
+(Udemy | Credential ID: UC-a44fa5d7-a5b0-4895-8512-126670934dbc | Duration: 20.5 Hours) Tj
 ET
 0.2 0.2 0.2 rg
 0.2 0.2 0.2 RG
 BT
-/F1 7.8 Tf
-46 351 Td
-(•  Engineered end-to-end food ordering platform featuring live order status telemetry and reactive cart state management.) Tj
+/F1 7.2 Tf
+50 557.3000000000004 Td
+(Mastered Spring Core, Dependency Injection \(DI\), Spring Boot, Spring Data JPA, and RESTful microservices architecture.) Tj
 ET
+0.1 0.1 0.1 rg
+0.1 0.1 0.1 RG
 BT
-/F1 7.8 Tf
-46 341.5 Td
-(•  Integrated Stripe payment gateway for seamless, encrypted credit/debit transactions with automated webhook verification.) Tj
+/F2 7.8 Tf
+42 547.8000000000004 Td
+(•  Power BI From Scratch) Tj
 ET
+0.3 0.3 0.3 rg
+0.3 0.3 0.3 RG
 BT
-/F1 7.8 Tf
-46 332 Td
-(•  Designed scalable backend REST microservices backed by MongoDB Atlas for real-time menu queries and user order histories.) Tj
+/F2 7.5 Tf
+492 547.8000000000004 Td
+(December 21, 2025) Tj
 ET
-0.04 0.15 0.25 rg
-0.04 0.15 0.25 RG
+0.4 0.4 0.4 rg
+0.4 0.4 0.4 RG
 BT
-/F2 10.5 Tf
-40 320.5 Td
-(EDUCATION) Tj
-ET
-0.12 0.38 0.57 rg
-0.12 0.38 0.57 RG
-0.8 w
-40 317.5 m
-555 317.5 l
-S
-0.04 0.15 0.25 rg
-0.04 0.15 0.25 RG
-BT
-/F2 8.5 Tf
-40 307.5 Td
-(Bachelor of Technology \(B.Tech\) in Information Technology  \(2023 - 2026\)) Tj
-ET
-0.25 0.25 0.25 rg
-0.25 0.25 0.25 RG
-BT
-/F1 8 Tf
-46 298 Td
-(Kalyani Government Engineering College \(KGEC / MAKAUT\)  —  6.55 CGPA \(Up to 8th Semester\)) Tj
-ET
-0.04 0.15 0.25 rg
-0.04 0.15 0.25 RG
-BT
-/F2 8.5 Tf
-40 287 Td
-(Diploma in Electronics & Telecommunication Engineering \(ETCE\)  \(2020 - 2023\)) Tj
-ET
-0.25 0.25 0.25 rg
-0.25 0.25 0.25 RG
-BT
-/F1 8 Tf
-46 277.5 Td
-(Purulia Polytechnic \(W.B.S.C.T.E\)  —  Score: 79.9%) Tj
-ET
-0.04 0.15 0.25 rg
-0.04 0.15 0.25 RG
-BT
-/F2 8.5 Tf
-40 266.5 Td
-(Higher Secondary \(10+2 Science\)  \(2018 - 2020\)) Tj
-ET
-0.25 0.25 0.25 rg
-0.25 0.25 0.25 RG
-BT
-/F1 8 Tf
-46 257 Td
-(Sodepur Colliery High School \(W.B.C.H.S.E\)  —  Score: 84.4%) Tj
-ET
-0.04 0.15 0.25 rg
-0.04 0.15 0.25 RG
-BT
-/F2 8.5 Tf
-40 246 Td
-(Secondary School Education \(10th Standard\)  \(2018\)) Tj
-ET
-0.25 0.25 0.25 rg
-0.25 0.25 0.25 RG
-BT
-/F1 8 Tf
-46 236.5 Td
-(Sodepur Colliery High School \(W.B.B.S.E\)  —  Score: 59.86%) Tj
-ET
-0.04 0.15 0.25 rg
-0.04 0.15 0.25 RG
-BT
-/F2 10.5 Tf
-40 225.5 Td
-(HONORS & CERTIFICATIONS) Tj
-ET
-0.12 0.38 0.57 rg
-0.12 0.38 0.57 RG
-0.8 w
-40 222.5 m
-555 222.5 l
-S
-0.2 0.2 0.2 rg
-0.2 0.2 0.2 RG
-BT
-/F1 8 Tf
-44 212.5 Td
-(•  WBJELET Engineering State Joint Entrance Exam: General Rank 170 | OBC Rank 26 \(Top Tier State Placement\)) Tj
+/F1 7 Tf
+50 539.3000000000004 Td
+(Udemy | Credential ID: UC-3308c41b-93cb-485a-9ee3-610090f8ef62 | Duration: 40 Hours) Tj
 ET
 0.2 0.2 0.2 rg
 0.2 0.2 0.2 RG
 BT
-/F1 8 Tf
-44 202.5 Td
-(•  Robo Fight Competition: Secured 3rd Position representing Purulia Polytechnic in tactical robotics combat matchup) Tj
+/F1 7.2 Tf
+50 531.1000000000004 Td
+(Mastered enterprise data modeling, DAX query optimization, Power Query ETL pipelines, and interactive analytics reporting dashboards.) Tj
+ET
+0.1 0.1 0.1 rg
+0.1 0.1 0.1 RG
+BT
+/F2 7.8 Tf
+42 521.6000000000004 Td
+(•  CSS, Bootstrap, JavaScript And PHP Stack Complete Course) Tj
+ET
+0.3 0.3 0.3 rg
+0.3 0.3 0.3 RG
+BT
+/F2 7.5 Tf
+492 521.6000000000004 Td
+(May 8, 2024) Tj
+ET
+0.4 0.4 0.4 rg
+0.4 0.4 0.4 RG
+BT
+/F1 7 Tf
+50 513.1000000000004 Td
+(Udemy | Credential ID: UC-895a323e-a202-41d4-a07e-08610799bbc2 | Duration: 8 Hours) Tj
 ET
 0.2 0.2 0.2 rg
 0.2 0.2 0.2 RG
 BT
-/F1 8 Tf
-44 192.5 Td
-(•  Professional Full Stack Systems Certification: Certified in Modern Web Frameworks, CSS/Bootstrap, JavaScript, and PHP) Tj
+/F1 7.2 Tf
+50 504.9000000000004 Td
+(Gained expertise in responsive web design, DOM manipulation, asynchronous JavaScript operations, and PHP server scripting.) Tj
+ET
+0.1 0.1 0.1 rg
+0.1 0.1 0.1 RG
+BT
+/F2 7.8 Tf
+42 495.4000000000004 Td
+(•  Learn the Python Programming Language) Tj
+ET
+0.3 0.3 0.3 rg
+0.3 0.3 0.3 RG
+BT
+/F2 7.5 Tf
+492 495.4000000000004 Td
+(March 16, 2024) Tj
+ET
+0.4 0.4 0.4 rg
+0.4 0.4 0.4 RG
+BT
+/F1 7 Tf
+50 486.9000000000004 Td
+(Udemy | Credential ID: UC-90269a29-9c64-4fc6-8759-66586b6dc73e | Duration: 2.5 Hours) Tj
 ET
 0.2 0.2 0.2 rg
 0.2 0.2 0.2 RG
 BT
-/F1 8 Tf
-44 182.5 Td
-(•  Domestic Data Entry Operator \(DDEO\): Certified in database operational maintenance and speed typing) Tj
+/F1 7.2 Tf
+50 478.7000000000004 Td
+(Core proficiency in Python syntax, standard data structures, object-oriented concepts, and algorithmic problem-solving.) Tj
+ET
+0.1 0.1 0.1 rg
+0.1 0.1 0.1 RG
+BT
+/F2 7.8 Tf
+42 469.2000000000004 Td
+(•  Common Indicators for Cryptocurrencies Trading with Python) Tj
+ET
+0.3 0.3 0.3 rg
+0.3 0.3 0.3 RG
+BT
+/F2 7.5 Tf
+492 469.2000000000004 Td
+(March 15, 2024) Tj
+ET
+0.4 0.4 0.4 rg
+0.4 0.4 0.4 RG
+BT
+/F1 7 Tf
+50 460.7000000000004 Td
+(Udemy | Credential ID: UC-604e0fb5-86a3-400f-bbe4-4d8991b7fb4d | Duration: 2 Hours) Tj
+ET
+0.2 0.2 0.2 rg
+0.2 0.2 0.2 RG
+BT
+/F1 7.2 Tf
+50 452.5000000000004 Td
+(Implemented technical financial indicators, quantitative market data processing, and automated algorithmic calculations using Python.) Tj
 ET
 endstream
 endobj
 xref
-0 7
+0 9
 0000000000 65535 f 
 0000000019 00000 n 
 0000000068 00000 n 
-0000000125 00000 n 
-0000000293 00000 n 
-0000000363 00000 n 
-0000000438 00000 n 
+0000000131 00000 n 
+0000000299 00000 n 
+0000000467 00000 n 
+0000000537 00000 n 
+0000000612 00000 n 
+0000007899 00000 n 
 trailer
-<< /Size 7 /Root 1 0 R >>
+<< /Size 9 /Root 1 0 R >>
 startxref
-11005
+15518
 %%EOF

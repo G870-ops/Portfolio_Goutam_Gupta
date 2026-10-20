@@ -3,21 +3,18 @@ import path from 'path';
 
 // Generate clean standard vector PDF with ATS compliance
 // Page: Standard Letter / A4 (595.28 x 841.89 points)
+// Exactly matching user's uploaded 2-page Resume PDF
+
 const WIDTH = 595;
 const HEIGHT = 842;
-const MARGIN_LEFT = 40;
-const MARGIN_RIGHT = 40;
-const CONTENT_WIDTH = WIDTH - MARGIN_LEFT - MARGIN_RIGHT;
+const MARGIN_LEFT = 38;
+const MARGIN_RIGHT = 38;
 
-class SimplePDF {
-  constructor() {
-    this.pagesContent = [];
-  }
-
+class ResumePDF {
   build() {
     const pages = [];
     let ops = [];
-    let y = 805;
+    let y = 808;
 
     const setColor = (r, g, b) => {
       ops.push(`${r} ${g} ${b} rg`);
@@ -31,7 +28,7 @@ class SimplePDF {
       ops.push(`S`);
     };
 
-    const drawText = (text, x, yPos, font = '/F1', size = 9.5) => {
+    const drawText = (text, x, yPos, font = '/F1', size = 9) => {
       const sanitized = text
         .replace(/\\/g, '\\\\')
         .replace(/\(/g, '\\(')
@@ -43,244 +40,293 @@ class SimplePDF {
       ops.push(`ET`);
     };
 
-    const checkPageBreak = (needed = 40) => {
-      if (y - needed < 40) {
+    const drawCenteredText = (text, yPos, font = '/F1', size = 9) => {
+      // Approximate character width
+      const charWidth = size * (font === '/F2' ? 0.58 : 0.52);
+      const strWidth = text.length * charWidth;
+      const x = Math.max(MARGIN_LEFT, (WIDTH - strWidth) / 2);
+      drawText(text, x, yPos, font, size);
+    };
+
+    const checkPageBreak = (needed = 35) => {
+      if (y - needed < 35) {
         pages.push(ops.join('\n'));
         ops = [];
-        y = 805;
+        y = 808;
       }
     };
 
-    // Helper for Section Headers
-    const addSection = (title) => {
-      checkPageBreak(35);
-      setColor(0.04, 0.15, 0.25);
-      drawText(title.toUpperCase(), MARGIN_LEFT, y, '/F2', 10.5);
+    const addSectionHeader = (title) => {
+      checkPageBreak(30);
+      setColor(0.04, 0.15, 0.28);
+      drawText(title.toUpperCase(), MARGIN_LEFT, y, '/F2', 10);
       y -= 3;
-      setColor(0.12, 0.38, 0.57);
-      drawLine(MARGIN_LEFT, y, WIDTH - MARGIN_RIGHT, y, 0.8);
-      y -= 10;
+      setColor(0.12, 0.35, 0.55);
+      drawLine(MARGIN_LEFT, y, WIDTH - MARGIN_RIGHT, y, 0.75);
+      y -= 9.5;
     };
 
-    // ── HEADER: Name ──
-    setColor(0.04, 0.15, 0.25);
-    drawText('GOUTAM GUPTA', MARGIN_LEFT, y, '/F2', 18);
-    y -= 14;
+    // ════════════════════ PAGE 1 ════════════════════
 
-    // Subtitle
-    setColor(0.12, 0.38, 0.57);
-    drawText('Full-Stack MERN Architect & Android App Developer', MARGIN_LEFT, y, '/F2', 10);
+    // Header
+    setColor(0, 0, 0);
+    drawCenteredText('GOUTAM GUPTA', y, '/F2', 18);
     y -= 13;
 
-    // Contact details
-    setColor(0.25, 0.25, 0.25);
-    const contactLine = 'Kolkata, WB | +91 8343957187 | goutamgupta605@gmail.com | linkedin.com/in/goutam-gupta | github.com/G870-ops';
-    drawText(contactLine, MARGIN_LEFT, y, '/F1', 8);
-    y -= 7;
-
-    // Top Divider Line
-    setColor(0.12, 0.38, 0.57);
-    drawLine(MARGIN_LEFT, y, WIDTH - MARGIN_RIGHT, y, 1.2);
+    setColor(0.08, 0.25, 0.45);
+    drawCenteredText('Full-Stack MERN Architect & Android App Developer', y, '/F2', 9.5);
     y -= 12;
 
-    // ── SECTION 1: PROFESSIONAL SUMMARY ──
-    addSection('Professional Summary');
     setColor(0.2, 0.2, 0.2);
-    const summaryLines = [
-      'Innovative Full-Stack MERN Architect and Native Android Developer with proven expertise in building scalable, real-time web applications,',
-      'low-latency WebSocket engines, and edge AI mobile systems. Proficient in React.js, Node.js, Express, MongoDB, Java, Kotlin, and Gemini AI.',
-      'Demonstrated success architecting microservices, RESTful APIs, role-based security architectures, and automated financial/educational pipelines',
-      'with a strong commitment to clean code principles, high-performance rendering, and seamless cloud deployments.'
-    ];
-    summaryLines.forEach(line => {
-      drawText(line, MARGIN_LEFT, y, '/F1', 8);
-      y -= 10;
-    });
-    y -= 2;
+    drawCenteredText('Asansol, WB, India | +91 8343957187 | Gmail.com | linkedin.com | github.com', y, '/F1', 8);
+    y -= 14;
 
-    // ── SECTION 2: TECHNICAL SKILLS ──
-    addSection('Technical Skills Matrix');
+    // ── PROFESSIONAL SUMMARY ──
+    addSectionHeader('Professional Summary');
+    setColor(0.15, 0.15, 0.15);
+    const summary = [
+      'Proactive and results-driven Full-Stack MERN Architect and Android Application Developer with a strong track record of',
+      'engineering scalable web applications, low-latency microservices, and high-performance native Android solutions. Proficient',
+      'across modern JavaScript ecosystems (React.js, Node.js, Express, MongoDB Atlas) and native mobile frameworks (Java, Kotlin,',
+      'Android SDK). Experienced in building real-time multiplayer WebSocket engines, AI-powered systems (Gemini AI, TFLite), and',
+      'secure enterprise authentication (JWT, Nodemailer). Committed to clean architectural patterns, robust API design, and intuitive',
+      'user experiences.'
+    ];
+    summary.forEach(line => {
+      drawText(line, MARGIN_LEFT, y, '/F1', 7.7);
+      y -= 9.5;
+    });
+    y -= 3;
+
+    // ── TECHNICAL SKILLS ──
+    addSectionHeader('Technical Skills');
     const skills = [
-      ['Frontend Engineering', 'React.js, Vite, JavaScript (ES6+), HTML5, CSS3, Tailwind CSS, Bootstrap, Responsive UI/UX'],
-      ['Backend & APIs', 'Node.js, Express.js, RESTful APIs, JWT Authentication, Nodemailer, WebSocket, Microservices, PHP'],
+      ['Frontend Engineering', 'React.js, Vite, JavaScript (ES6+), HTML5, CSS3, Tailwind CSS, Bootstrap, Responsive UI/UX Design'],
+      ['Backend & APIs', 'Node.js, Express.js, RESTful APIs, JWT Authentication, Nodemailer, WebSocket.'],
       ['Mobile & Edge AI', 'Android Studio, Java, Kotlin, Android SDK, Material 3, MPAndroidChart, Firebase, TFLite, OpenCV'],
-      ['Database Systems', 'MongoDB Atlas, MySQL, NoSQL Document Design, Relational Database Modeling, Schema Optimization'],
-      ['Tools & Integrations', 'Git, GitHub, VS Code, Postman, Linux/WSL, Stripe API, Google Gemini AI, Agile Development']
+      ['Database Management', 'MongoDB Atlas,'],
+      ['Tools & Integrations', 'Git, GitHub, VS Code, Postman, Stripe API, Gemini API']
     ];
-
-    skills.forEach(([cat, items]) => {
-      setColor(0.08, 0.08, 0.08);
-      drawText(`•  ${cat}:`, MARGIN_LEFT + 3, y, '/F2', 8);
-      setColor(0.22, 0.22, 0.22);
-      drawText(items, MARGIN_LEFT + 120, y, '/F1', 8);
-      y -= 10.5;
-    });
-    y -= 2;
-
-    // ── SECTION 3: FEATURED ENGINEERING PROJECTS (6 PROJECTS FROM SCREENSHOT) ──
-    addSection('Featured Engineering Projects');
-
-    const projects = [
-      {
-        title: 'School Management System',
-        category: 'Full Stack Web Platform',
-        tech: 'React.js, Node.js, Express.js, MongoDB Atlas, Tailwind CSS, JWT, Nodemailer, Gemini AI',
-        live: 'https://school-management-system-lyart-zeta.vercel.app/login',
-        source: 'https://github.com/G870-ops/School-Management-System',
-        apk: '',
-        bullets: [
-          'Architected an enterprise School Management System with role-based access control for Admins, Teachers, Students, and Parents.',
-          'Engineered robust JWT authentication, Bcrypt password encryption, and Nodemailer OTP verification for secure login sessions.',
-          'Integrated AI-powered automated notification and fee reminders utilizing the Google Gemini API with real-time academic records.'
-        ]
-      },
-      {
-        title: 'Neo Chess - Real-Time Multiplayer Engine',
-        category: 'Mobile & WebSocket Engine',
-        tech: 'Android, Java, JavaScript, Node.js, Express, WebSocket, HTML5, CSS3',
-        live: '',
-        source: 'https://github.com/G870-ops/NEO_CHESS_GAME_APP',
-        apk: 'https://github.com/G870-ops/NEO_CHESS_GAME_APP/releases/download/v1.0.0/chess.apk',
-        bullets: [
-          'Engineered a real-time multiplayer chess platform combining a native Android wrapper with a low-latency web game engine.',
-          'Built Node.js WebSocket backend server handling concurrent player matchmaking, move synchronizations, and turn rule validations.',
-          'Distributed standalone Android APK package with zero-latency board responsiveness and cross-device match sessions.'
-        ]
-      },
-      {
-        title: 'Cow Business - AI Dairy Farm Calculator',
-        category: 'Android Fintech & Analytics App',
-        tech: 'Java, Android SDK, Material 3, MPAndroidChart, PdfDocument, SharedPreferences, XML',
-        live: '',
-        source: 'https://github.com/G870-ops/Cow_Business_App',
-        apk: 'https://github.com/G870-ops/Cow_Business_App/releases/download/v1.0.0/cow_business.apk',
-        bullets: [
-          'Developed native Android agribusiness application to calculate, forecast, and optimize dairy farm commercial profitability.',
-          'Implemented reducing-balance loan EMI calculation algorithms and interactive visual cashflow charts using MPAndroidChart.',
-          'Integrated an automated PDF document generator (PdfDocument) for exporting and sharing comprehensive business yield reports.'
-        ]
-      },
-      {
-        title: 'Sci-Fi Scientific Calculator',
-        category: 'Native Android Application',
-        tech: 'Kotlin, Android SDK, XML Layouts, Material 3, Gradle, Git, BigDecimal Precision Engine',
-        live: '',
-        source: 'https://github.com/G870-ops/Scientifc_calculator_project',
-        apk: 'https://github.com/G870-ops/Scientifc_calculator_project/releases/download/v1.0.0/Scie.Cal.apk',
-        bullets: [
-          'Engineered advanced Android scientific calculator featuring an interstellar cyberpunk UI, matrix solvers, and complex equations.',
-          'Programmed custom Java/Kotlin BigDecimal mathematical precision core preventing floating-point inaccuracies in conversions.',
-          'Packaged and distributed production-ready Android APK with built-in physics constants and mathematical reference tables.'
-        ]
-      },
-      {
-        title: 'Invitor (Event Booking) Website',
-        category: 'Full Stack Event Management',
-        tech: 'React.js, Vite, Tailwind CSS, RESTful APIs, Postman API Testing',
-        live: 'https://event-booking-web-app-seven.vercel.app/',
-        source: 'https://github.com/G870-ops/Event_Booking_WebApp',
-        apk: '',
-        bullets: [
-          'Developed a modern Event Booking management web platform featuring dynamic role-based administrative and client dashboards.',
-          'Constructed a high-velocity responsive interface with Tailwind CSS and Vite for optimized performance across devices.',
-          'Conducted automated API testing and validation with Postman collections to ensure zero-regression backend communications.'
-        ]
-      },
-      {
-        title: 'Full Stack Food Delivery Website',
-        category: 'Full Stack MERN Platform',
-        tech: 'React.js, Node.js, Express, MongoDB Atlas, Stripe API, Tailwind CSS',
-        live: 'https://food-dev-frontend.vercel.app/',
-        source: 'https://github.com/G870-ops/FOOD_DEV_FRONTEND',
-        apk: '',
-        bullets: [
-          'Engineered end-to-end food ordering platform featuring live order status telemetry and reactive cart state management.',
-          'Integrated Stripe payment gateway for seamless, encrypted credit/debit transactions with automated webhook verification.',
-          'Designed scalable backend REST microservices backed by MongoDB Atlas for real-time menu queries and user order histories.'
-        ]
-      }
-    ];
-
-    projects.forEach(p => {
-      checkPageBreak(50);
-      setColor(0.04, 0.15, 0.25);
-      drawText(p.title, MARGIN_LEFT, y, '/F2', 9.5);
-      setColor(0.4, 0.4, 0.4);
-      drawText(`  |  ${p.category}`, MARGIN_LEFT + 200, y, '/F1', 8);
-      y -= 10;
-
-      // Links row
-      const links = [];
-      if (p.live) links.push(`Live Demo: ${p.live}`);
-      if (p.apk) links.push(`Install APK: ${p.apk}`);
-      if (p.source) links.push(`Source: ${p.source}`);
-
-      setColor(0.12, 0.38, 0.57);
-      drawText(`[ ${links.join('  |  ')} ]`, MARGIN_LEFT + 4, y, '/F1', 7.5);
-      y -= 10;
-
+    skills.forEach(([cat, val]) => {
+      setColor(0.05, 0.05, 0.05);
+      drawText(`•  ${cat}:`, MARGIN_LEFT + 3, y, '/F2', 7.8);
       setColor(0.2, 0.2, 0.2);
+      drawText(val, MARGIN_LEFT + 115, y, '/F1', 7.8);
+      y -= 10;
+    });
+    y -= 3;
+
+    // ── FEATURED ENGINEERING PROJECTS ──
+    addSectionHeader('Featured Engineering Projects');
+
+    const project1 = {
+      title: 'School Management System',
+      category: 'Full Stack Web Platform',
+      tech: 'React.js, Node.js, Express.js, MongoDB Atlas, Tailwind CSS, JWT, Nodemailer, Gemini AI',
+      links: '[ Live Demo    Source Code ]',
+      bullets: [
+        'Architected enterprise-grade school management platform with role-based access control (Admin, Teachers, Students, Parents).',
+        'Engineered secure JWT authentication, Bcrypt password hashing, and Nodemailer OTP email verification workflows.',
+        'Integrated AI-powered fee notification & reminder engine utilizing Google Gemini API with automated student progress tracking modules.'
+      ]
+    };
+
+    const project2 = {
+      title: 'Neo Chess - Real-Time Multiplayer Engine',
+      category: 'Mobile & WebSocket Engine',
+      tech: 'Android Studio, Java, JavaScript, Node.js, Express, WebSocket, HTML5, CSS3',
+      links: '[ Download APK    Source Code ]',
+      bullets: [
+        'Developed real-time multiplayer chess game with native Android wrapper and high-performance embedded web execution layer.',
+        'Engineered Node.js WebSocket backend server achieving sub-30ms player matchmaking, live move synchronization, and turn validation.',
+        'Released standalone Android APK distribution package with offline fallback modes and zero-lag board rendering.'
+      ]
+    };
+
+    const project3 = {
+      title: 'Cow Business - AI Dairy Farm Calculator',
+      category: 'Android Fintech & Analytics App',
+      tech: 'Java, Android SDK, Material 3, MPAndroidChart, PdfDocument, SharedPreferences, XML',
+      links: '[ Download APK    Source Code ]',
+      bullets: [
+        'Created specialized native Android agricultural finance application for yield forecasting and dairy farm profitability analysis.',
+        'Implemented reducing-balance loan EMI calculation algorithms and interactive visual cashflow graphs using MPAndroidChart.',
+        'Engineered automated PDF export generator (PdfDocument) enabling farmers to save and share comprehensive business dossiers.'
+      ]
+    };
+
+    const project4 = {
+      title: 'Sci-Fi Scientific Calculator',
+      category: 'Native Android Calculator Application',
+      tech: 'Kotlin, Android SDK, XML Layouts, Material 3, Gradle, Git, BigDecimal Precision Engine',
+      links: '[ Download APK    Source Code ]',
+      bullets: [
+        'Built advanced native Android calculator with cyberpunk interstellar neon UI theme, matrix solvers, and complex equations.',
+        'Engineered custom Java/Kotlin BigDecimal mathematical precision core preventing floating-point inaccuracies during multi-step conversions.',
+        'Implemented built-in physics/math formula cheatsheets and released optimized native APK on GitHub Releases.'
+      ]
+    };
+
+    const renderProject = (p) => {
+      checkPageBreak(45);
+      setColor(0.04, 0.15, 0.28);
+      drawText(p.title, MARGIN_LEFT, y, '/F2', 8.8);
+      setColor(0.35, 0.35, 0.35);
+      drawText(` | ${p.category}`, MARGIN_LEFT + (p.title.length * 5), y, '/F1', 7.5);
+      y -= 9;
+
+      setColor(0.3, 0.3, 0.3);
+      drawText(`Tech Stack: `, MARGIN_LEFT, y, '/F2', 7.5);
+      drawText(`${p.tech}  `, MARGIN_LEFT + 46, y, '/F1', 7.5);
+      setColor(0.08, 0.35, 0.6);
+      drawText(p.links, MARGIN_LEFT + 46 + (p.tech.length * 3.7), y, '/F1', 7.5);
+      y -= 9;
+
+      setColor(0.18, 0.18, 0.18);
       p.bullets.forEach(b => {
-        checkPageBreak(12);
-        drawText(`•  ${b}`, MARGIN_LEFT + 6, y, '/F1', 7.8);
-        y -= 9.5;
+        checkPageBreak(11);
+        drawText(`•  ${b}`, MARGIN_LEFT + 5, y, '/F1', 7.5);
+        y -= 8.8;
       });
       y -= 2;
-    });
+    };
 
-    // ── SECTION 4: EDUCATION ──
-    addSection('Education');
-    const education = [
+    [project1, project2, project3, project4].forEach(renderProject);
+
+    // End Page 1
+    pages.push(ops.join('\n'));
+    ops = [];
+    y = 808;
+
+    // ════════════════════ PAGE 2 ════════════════════
+
+    const project5 = {
+      title: 'Invitor (Event Booking) Website',
+      category: 'Full Stack Event Management',
+      tech: 'React.js, Vite, Tailwind CSS, RESTful APIs, Postman API Testing',
+      links: '[ Live Demo    Source Code ]',
+      bullets: [
+        'Built full-stack Event Booking and Ticketing management platform featuring dynamic role-based dashboards.',
+        'Designed responsive cyberpunk-tailored interface using Tailwind CSS and high-velocity Vite build pipeline.',
+        'Verified and audited end-to-end REST API communication with structured Postman collections for seamless reliability.'
+      ]
+    };
+
+    const project6 = {
+      title: 'Full Stack Food Delivery Website',
+      category: 'Full Stack MERN Platform',
+      tech: 'React.js, Node.js, Express, MongoDB Atlas, Stripe Payment Gateway, Tailwind CSS',
+      links: '[ Live Demo    Source Code ]',
+      bullets: [
+        'Developed end-to-end online food ordering application with live telemetry order status tracking and responsive user carts.',
+        'Integrated Stripe payment gateway for encrypted online financial transactions with webhook-driven order fulfillment.',
+        'Architected scalable backend REST APIs using Express.js and MongoDB aggregation queries for food catalog filtering.'
+      ]
+    };
+
+    [project5, project6].forEach(renderProject);
+    y -= 3;
+
+    // ── EDUCATION ──
+    addSectionHeader('Education');
+
+    const eduEntries = [
       {
-        degree: 'Bachelor of Technology (B.Tech) in Information Technology',
-        inst: 'Kalyani Government Engineering College (KGEC / MAKAUT)',
-        year: '2023 - 2026',
-        score: '6.55 CGPA (Up to 8th Semester)'
+        deg: 'Bachelor of Technology (B.Tech) - Information Technology',
+        dur: '(2023 - 2026)',
+        sub: 'Kalyani Government Engineering College (KGEC / MAKAUT) — Score: 6.61 CGPA'
       },
       {
-        degree: 'Diploma in Electronics & Telecommunication Engineering (ETCE)',
-        inst: 'Purulia Polytechnic (W.B.S.C.T.E)',
-        year: '2020 - 2023',
-        score: 'Score: 79.9%'
+        deg: 'Diploma in Electronics & Telecommunication Engineering (ETCE)',
+        dur: '(2020 - 2023)',
+        sub: 'Purulia Polytechnic (W.B.S.C.T.E) — Score: 79.9% Aggregate'
       },
       {
-        degree: 'Higher Secondary (10+2 Science)',
-        inst: 'Sodepur Colliery High School (W.B.C.H.S.E)',
-        year: '2018 - 2020',
-        score: 'Score: 84.4%'
+        deg: 'Higher Secondary Education (10+2)',
+        dur: '(2018 - 2020)',
+        sub: 'Sodepur Colliery High School (W.B.C.H.S.E) — Score: 84.4%'
       },
       {
-        degree: 'Secondary School Education (10th Standard)',
-        inst: 'Sodepur Colliery High School (W.B.B.S.E)',
-        year: '2018',
-        score: 'Score: 59.86%'
+        deg: 'Secondary School Education (10th Standard)',
+        dur: '(2018)',
+        sub: 'Sodepur Colliery High School (W.B.B.S.E) — Score: 59.86%'
       }
     ];
 
-    education.forEach(edu => {
-      checkPageBreak(20);
-      setColor(0.04, 0.15, 0.25);
-      drawText(`${edu.degree}  (${edu.year})`, MARGIN_LEFT, y, '/F2', 8.5);
+    eduEntries.forEach(e => {
+      setColor(0.08, 0.32, 0.58);
+      drawText(e.deg, MARGIN_LEFT, y, '/F2', 8);
+      setColor(0.35, 0.35, 0.35);
+      drawText(` ${e.dur}`, MARGIN_LEFT + (e.deg.length * 4.6), y, '/F1', 7.5);
+      y -= 8.5;
+      setColor(0.2, 0.2, 0.2);
+      drawText(e.sub, MARGIN_LEFT, y, '/F1', 7.5);
       y -= 9.5;
-      setColor(0.25, 0.25, 0.25);
-      drawText(`${edu.inst}  —  ${edu.score}`, MARGIN_LEFT + 6, y, '/F1', 8);
-      y -= 11;
     });
+    y -= 3;
 
-    // ── SECTION 5: HONORS & CERTIFICATIONS ──
-    addSection('Honors & Certifications');
-    const honors = [
-      'WBJELET Engineering State Joint Entrance Exam: General Rank 170 | OBC Rank 26 (Top Tier State Placement)',
-      'Robo Fight Competition: Secured 3rd Position representing Purulia Polytechnic in tactical robotics combat matchup',
-      'Professional Full Stack Systems Certification: Certified in Modern Web Frameworks, CSS/Bootstrap, JavaScript, and PHP',
-      'Domestic Data Entry Operator (DDEO): Certified in database operational maintenance and speed typing'
+    // ── HONORS, RANKINGS & CERTIFICATIONS ──
+    addSectionHeader('Honors, Rankings & Certifications');
+    setColor(0.18, 0.18, 0.18);
+    const bulletsHonors = [
+      'WBJELET State Joint Entrance Examination: General Rank 170 | OBC Rank 26 (Top Tier State Placement).',
+      'Robo Fight Competition: 3rd Position Trophy representing Purulia Polytechnic in tactical robotics warfare.',
+      'Open-Source Community: Regularly mentor junior peers in Android SDK configuration, React frontend patterns, and REST API design.',
+      'Domestic Data Entry Operator (DDEO): Certified in database operational maintenance and speed typing.'
     ];
 
-    honors.forEach(h => {
-      checkPageBreak(12);
+    bulletsHonors.forEach(b => {
+      drawText(`•  ${b}`, MARGIN_LEFT + 4, y, '/F1', 7.6);
+      y -= 8.8;
+    });
+    y -= 3;
+
+    // Certifications with dates
+    const certs = [
+      {
+        title: '•  Spring Framework for Java Developers: Practical Guide',
+        date: 'March 17, 2025',
+        meta: 'Udemy | Credential ID: UC-a44fa5d7-a5b0-4895-8512-126670934dbc | Duration: 20.5 Hours',
+        desc: 'Mastered Spring Core, Dependency Injection (DI), Spring Boot, Spring Data JPA, and RESTful microservices architecture.'
+      },
+      {
+        title: '•  Power BI From Scratch',
+        date: 'December 21, 2025',
+        meta: 'Udemy | Credential ID: UC-3308c41b-93cb-485a-9ee3-610090f8ef62 | Duration: 40 Hours',
+        desc: 'Mastered enterprise data modeling, DAX query optimization, Power Query ETL pipelines, and interactive analytics reporting dashboards.'
+      },
+      {
+        title: '•  CSS, Bootstrap, JavaScript And PHP Stack Complete Course',
+        date: 'May 8, 2024',
+        meta: 'Udemy | Credential ID: UC-895a323e-a202-41d4-a07e-08610799bbc2 | Duration: 8 Hours',
+        desc: 'Gained expertise in responsive web design, DOM manipulation, asynchronous JavaScript operations, and PHP server scripting.'
+      },
+      {
+        title: '•  Learn the Python Programming Language',
+        date: 'March 16, 2024',
+        meta: 'Udemy | Credential ID: UC-90269a29-9c64-4fc6-8759-66586b6dc73e | Duration: 2.5 Hours',
+        desc: 'Core proficiency in Python syntax, standard data structures, object-oriented concepts, and algorithmic problem-solving.'
+      },
+      {
+        title: '•  Common Indicators for Cryptocurrencies Trading with Python',
+        date: 'March 15, 2024',
+        meta: 'Udemy | Credential ID: UC-604e0fb5-86a3-400f-bbe4-4d8991b7fb4d | Duration: 2 Hours',
+        desc: 'Implemented technical financial indicators, quantitative market data processing, and automated algorithmic calculations using Python.'
+      }
+    ];
+
+    certs.forEach(c => {
+      setColor(0.1, 0.1, 0.1);
+      drawText(c.title, MARGIN_LEFT + 4, y, '/F2', 7.8);
+      setColor(0.3, 0.3, 0.3);
+      drawText(c.date, WIDTH - MARGIN_RIGHT - 65, y, '/F2', 7.5);
+      y -= 8.5;
+      setColor(0.4, 0.4, 0.4);
+      drawText(c.meta, MARGIN_LEFT + 12, y, '/F1', 7);
+      y -= 8.2;
       setColor(0.2, 0.2, 0.2);
-      drawText(`•  ${h}`, MARGIN_LEFT + 4, y, '/F1', 8);
-      y -= 10;
+      drawText(c.desc, MARGIN_LEFT + 12, y, '/F1', 7.2);
+      y -= 9.5;
     });
 
     pages.push(ops.join('\n'));
@@ -288,8 +334,7 @@ class SimplePDF {
   }
 }
 
-// Generate the multi-page PDF with 6 projects
-const generator = new SimplePDF();
+const generator = new ResumePDF();
 const pages = generator.build();
 
 const pdfParts = [];
@@ -308,13 +353,10 @@ const header = '%PDF-1.4\n%\xE2\xE3\xCF\xD3\n';
 pdfParts.push(Buffer.from(header));
 offset += Buffer.byteLength(header);
 
-// Object 1: Catalog
+// Catalog
 addObj('1 0 obj\n<< /Type /Catalog /Pages 2 0 R >>\nendobj');
 
-// Page objects ids
-// Pages obj is 2. Font F1 is 4, F2 is 5.
-// Let's create page objs:
-// For 2 pages: page 1 is obj 3, content is obj 6. page 2 is obj 7, content is obj 8.
+// Pages
 const numPages = pages.length;
 const pageObjIds = [];
 let nextId = 3;
@@ -329,10 +371,8 @@ for (let i = 0; i < numPages; i++) {
   contentObjIds.push(nextId++);
 }
 
-// Object 2: Pages
 addObj(`2 0 obj\n<< /Type /Pages /Kids [${pageObjIds.map(id => `${id} 0 R`).join(' ')}] /Count ${numPages} >>\nendobj`);
 
-// Page objects
 for (let i = 0; i < numPages; i++) {
   addObj(`${pageObjIds[i]} 0 obj
 <<
@@ -350,11 +390,9 @@ for (let i = 0; i < numPages; i++) {
 endobj`);
 }
 
-// Fonts
 addObj(`${fontF1Id} 0 obj\n<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>\nendobj`);
 addObj(`${fontF2Id} 0 obj\n<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>\nendobj`);
 
-// Streams
 for (let i = 0; i < numPages; i++) {
   const streamBuf = Buffer.from(pages[i]);
   addObj(`${contentObjIds[i]} 0 obj
@@ -365,7 +403,6 @@ endstream
 endobj`);
 }
 
-// XRef table
 const xrefOffset = offset;
 let xrefStr = `xref\n0 ${nextId}\n0000000000 65535 f \n`;
 xref.forEach((o) => {
