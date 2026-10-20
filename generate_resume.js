@@ -1,9 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-// Generate clean standard vector PDF with ATS compliance
-// Page: Standard Letter / A4 (595.28 x 841.89 points)
-// Exactly matching user's uploaded 2-page Resume PDF
+
 
 const WIDTH = 595;
 const HEIGHT = 842;
