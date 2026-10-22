@@ -8,12 +8,20 @@ import Footer from './components/Footer';
 import MatrixBackground from './components/MatrixBackground';
 import TerminalModal from './components/TerminalModal';
 import AdminDashboard from './components/AdminDashboard';
-import { projectAPI, skillAPI } from './api/client';
+import { projectAPI, skillAPI, profileAPI } from './api/client';
 import { Trophy, GraduationCap, Award, ExternalLink, Smartphone } from 'lucide-react';
 
 function App() {
   const [projects, setProjects] = useState([]);
   const [skills, setSkills] = useState([]);
+  const [profile, setProfile] = useState(() => {
+    try {
+      const saved = localStorage.getItem('portfolio_profile');
+      return saved ? JSON.parse(saved) : null;
+    } catch (_) {
+      return null;
+    }
+  });
   const [loadingProjects, setLoadingProjects] = useState(true);
   const [terminalOpen, setTerminalOpen] = useState(false);
   const [adminOpen, setAdminOpen] = useState(false);
@@ -128,9 +136,22 @@ function App() {
     }
   };
 
+  const fetchProfile = async () => {
+    try {
+      const res = await profileAPI.get();
+      if (res.data?.data) {
+        setProfile(res.data.data);
+        localStorage.setItem('portfolio_profile', JSON.stringify(res.data.data));
+      }
+    } catch (err) {
+      console.warn('[API NOTICE] Using local profile data.', err.message);
+    }
+  };
+
   useEffect(() => {
     fetchProjects();
     fetchSkills();
+    fetchProfile();
   }, []);
 
   return (
@@ -148,7 +169,7 @@ function App() {
 
       {/* Main Content Sections */}
       <main className="relative z-10">
-        <Hero onHireClick={() => { }} />
+        <Hero onHireClick={() => { }} profile={profile} />
 
         {/* About Section */}
         <section id="about" className="py-16 px-4 max-w-7xl mx-auto">
@@ -314,6 +335,7 @@ function App() {
         onClose={() => setAdminOpen(false)}
         onProjectUpdated={fetchProjects}
         onSkillsUpdated={fetchSkills}
+        onProfileUpdated={(updated) => setProfile(updated)}
       />
 
       {/* Footer */}

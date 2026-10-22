@@ -10,7 +10,41 @@ const titles = [
   'API & Cloud Specialist',
 ];
 
-const Hero = ({ onHireClick }) => {
+const Hero = ({ onHireClick, profile: propProfile }) => {
+  const [profile, setProfile] = useState(() => {
+    try {
+      const saved = localStorage.getItem('portfolio_profile');
+      return saved ? JSON.parse(saved) : null;
+    } catch (_) {
+      return null;
+    }
+  });
+
+  useEffect(() => {
+    if (propProfile) {
+      setProfile(propProfile);
+    }
+  }, [propProfile]);
+
+  useEffect(() => {
+    const handleProfileUpdate = () => {
+      try {
+        const saved = localStorage.getItem('portfolio_profile');
+        if (saved) setProfile(JSON.parse(saved));
+      } catch (_) {}
+    };
+    window.addEventListener('portfolio_profile_updated', handleProfileUpdate);
+    return () => window.removeEventListener('portfolio_profile_updated', handleProfileUpdate);
+  }, []);
+
+  const displayName = profile?.name || 'Goutam Gupta';
+  const displayBio = profile?.bio || 'Full-Stack MERN Architect & Android Developer with deep expertise in reactive frontends, asynchronous Node.js microservices, distributed MongoDB pipelines, and mission-critical edge AI applications.';
+  const displayEmail = profile?.email || 'goutamgupta605@gmail.com';
+  const displayPhone = profile?.phone || '+91 8343957187';
+  const displayGithub = profile?.github || 'https://github.com/G870-ops';
+  const displayLinkedin = profile?.linkedin || 'https://www.linkedin.com/in/goutam-gupta';
+  const displayImg = profile?.profileImg || profileImage || '/profile.jpg';
+
   const [titleIndex, setTitleIndex] = useState(0);
   const [displayText, setDisplayText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
@@ -44,7 +78,7 @@ const Hero = ({ onHireClick }) => {
     setBioStatus('SCANNING_HASH...');
     setTimeout(() => {
       setBioScanning(false);
-      setBioStatus('VERIFIED_GOUTAM_GUPTA_');
+      setBioStatus(`VERIFIED_${displayName.replace(/\s+/g, '_').toUpperCase()}_`);
     }, 1200);
   };
 
@@ -61,8 +95,8 @@ const Hero = ({ onHireClick }) => {
         >
           <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-cyber-cyan via-cyber-pink to-cyber-green opacity-75 blur-md group-hover:opacity-100 group-hover:blur-lg transition duration-500 animate-pulse" />
           <img
-            src={profileImage || "/profile.jpg"}
-            alt="Goutam Gupta"
+            src={displayImg}
+            alt={displayName}
             className="relative w-36 h-36 sm:w-44 sm:h-44 rounded-full object-cover border-2 border-cyber-cyan shadow-glow-cyan transition-transform duration-500 group-hover:scale-105"
           />
           <div className="absolute bottom-1 right-1 bg-cyber-dark/90 px-2 py-0.5 rounded-full border border-cyber-green text-[10px] font-orbitron text-cyber-green flex items-center gap-1 shadow-glow-green">
@@ -78,7 +112,7 @@ const Hero = ({ onHireClick }) => {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="font-orbitron text-4xl sm:text-6xl md:text-7xl font-black uppercase tracking-wider text-cyber-cyan text-glow-cyan mb-2"
         >
-          Goutam Gupta
+          {displayName}
         </motion.h1>
 
         {/* Dynamic Typewriter Subtitle */}
@@ -91,7 +125,7 @@ const Hero = ({ onHireClick }) => {
 
         {/* Mission Statement */}
         <p className="max-w-2xl text-gray-300 font-rajdhani text-base sm:text-lg leading-relaxed mb-8">
-          Full-Stack MERN Architect & Android Developer with deep expertise in reactive frontends, asynchronous Node.js microservices, distributed MongoDB pipelines, and mission-critical edge AI applications.
+          {displayBio}
         </p>
 
         {/* Call-to-Action Buttons */}
@@ -123,30 +157,30 @@ const Hero = ({ onHireClick }) => {
         {/* Telemetry Contact Strip */}
         <div className="flex flex-wrap items-center justify-center gap-4 text-xs font-orbitron">
           <a
-            href="mailto:goutamgupta605@gmail.com"
+            href={`mailto:${displayEmail}`}
             className="flex items-center gap-2 px-3 py-1.5 rounded glass-panel hover:border-cyber-cyan text-gray-300 hover:text-cyber-cyan transition-colors"
           >
             <Mail className="w-3.5 h-3.5 text-cyber-cyan" />
-            <span>goutamgupta605@gmail.com</span>
+            <span>{displayEmail}</span>
           </a>
           <a
-            href="tel:8343957187"
+            href={`tel:${displayPhone.replace(/[^0-9+]/g, '')}`}
             className="flex items-center gap-2 px-3 py-1.5 rounded glass-panel hover:border-cyber-pink text-gray-300 hover:text-cyber-pink transition-colors"
           >
             <Phone className="w-3.5 h-3.5 text-cyber-pink" />
-            <span>+91 8343957187</span>
+            <span>{displayPhone}</span>
           </a>
           <a
-            href="https://github.com/G870-ops"
+            href={displayGithub.startsWith('http') ? displayGithub : `https://${displayGithub}`}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 px-3 py-1.5 rounded glass-panel hover:border-cyber-cyan text-gray-300 hover:text-cyber-cyan transition-colors"
           >
             <Github className="w-3.5 h-3.5 text-cyber-cyan" />
-            <span>G870-ops</span>
+            <span>{displayGithub.replace(/^https?:\/\/(www\.)?github\.com\/?/, '') || 'GitHub'}</span>
           </a>
           <a
-            href={import.meta.env.VITE_LINKEDIN_URL || "https://www.linkedin.com/in/goutam-gupta"}
+            href={displayLinkedin.startsWith('http') ? displayLinkedin : `https://${displayLinkedin}`}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 px-3 py-1.5 rounded glass-panel hover:border-cyber-pink text-gray-300 hover:text-cyber-pink transition-colors"

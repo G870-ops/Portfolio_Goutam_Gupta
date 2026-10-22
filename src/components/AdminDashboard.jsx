@@ -4,7 +4,7 @@ import {
   Loader2, Pencil, XCircle, ExternalLink, Download, Save, User,
   Code, RefreshCw, Star, Lock, Key,
 } from 'lucide-react';
-import { authAPI, projectAPI, skillAPI, contactAPI } from '../api/client';
+import { authAPI, projectAPI, skillAPI, contactAPI, profileAPI } from '../api/client';
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 const INPUT = 'w-full px-3 py-2 rounded bg-black/60 border border-white/10 text-white font-rajdhani text-sm outline-none focus:border-cyber-cyan transition-colors';
@@ -210,7 +210,7 @@ const SkillForm = ({ initial, onSubmit, submitLabel, msg, onCancel }) => {
 };
 
 // ─── Main Component ───────────────────────────────────────────────────────────
-const AdminDashboard = ({ isOpen, onClose, onProjectUpdated, onSkillsUpdated }) => {
+const AdminDashboard = ({ isOpen, onClose, onProjectUpdated, onSkillsUpdated, onProfileUpdated }) => {
   const [token, setToken] = useState(localStorage.getItem('portfolio_token') || '');
   const [adminUser, setAdminUser] = useState(null);
 
@@ -240,22 +240,24 @@ const AdminDashboard = ({ isOpen, onClose, onProjectUpdated, onSkillsUpdated }) 
   const [skillMsg, setSkillMsg] = useState({ type: '', text: '' });
 
   // Profile panel state (editable clone of Hero static data)
-  const [profile, setProfile] = useState({
-    name: 'Goutam Gupta',
-    bio: 'Full-Stack MERN Architect & Android Developer with deep expertise in reactive frontends, asynchronous Node.js microservices, distributed MongoDB pipelines, and mission-critical edge AI applications.',
-    email: 'goutamgupta605@gmail.com',
-    phone: '+91 8343957187',
-    github: 'https://github.com/G870-ops',
-    linkedin: 'https://www.linkedin.com/in/goutam-gupta',
-    resumeEmail: 'goutamgupta605@gmail.com',
-    profileImg: '/profile.jpg',
+  const [profile, setProfile] = useState(() => {
+    try {
+      const saved = localStorage.getItem('portfolio_profile');
+      if (saved) return JSON.parse(saved);
+    } catch (_) {}
+    return {
+      name: 'Goutam Gupta',
+      bio: 'Full-Stack MERN Architect & Android Developer with deep expertise in reactive frontends, asynchronous Node.js microservices, distributed MongoDB pipelines, and mission-critical edge AI applications.',
+      email: 'goutamgupta605@gmail.com',
+      phone: '+91 8343957187',
+      github: 'https://github.com/G870-ops',
+      linkedin: 'https://www.linkedin.com/in/goutam-gupta',
+      resumeEmail: 'goutamgupta605@gmail.com',
+      profileImg: '/profile.jpg',
+    };
   });
   const [profileMsg, setProfileMsg] = useState({ type: '', text: '' });
-
-  // Password change state
-  const [passwordForm, setPasswordForm] = useState({ currentPassword: '', newPassword: '', confirmPassword: '' });
-  const [passwordLoading, setPasswordLoading] = useState(false);
-  const [passwordMsg, setPasswordMsg] = useState({ type: '', text: '' });
+  const [profileLoading, setProfileLoading] = useState(false);
 
   // ── Auth session ─────────────────────────────────────────────────────────────
   useEffect(() => {
@@ -269,14 +271,19 @@ const AdminDashboard = ({ isOpen, onClose, onProjectUpdated, onSkillsUpdated }) 
   const loadAll = useCallback(async () => {
     setLoadingData(true);
     try {
-      const [projRes, skillRes, msgRes] = await Promise.all([
+      const [projRes, skillRes, msgRes, profRes] = await Promise.all([
         projectAPI.getAll(),
         skillAPI.getAll(),
         contactAPI.getAll().catch(() => ({ data: { data: [] } })),
+        profileAPI.get().catch(() => null),
       ]);
       setProjectsList(projRes.data.data || []);
       setSkillsList(skillRes.data.data || []);
       setMessagesList(msgRes.data?.data || []);
+      if (profRes?.data?.data) {
+        setProfile(prev => ({ ...prev, ...profRes.data.data }));
+        localStorage.setItem('portfolio_profile', JSON.stringify(profRes.data.data));
+      }
     } catch (err) {
       console.error(err);
     } finally {
@@ -423,19 +430,58 @@ const AdminDashboard = ({ isOpen, onClose, onProjectUpdated, onSkillsUpdated }) 
   };
 
   // ── Profile ───────────────────────────────────────────────────────────────────
-  const saveProfile = (e) => {
+  const saveProfile = async (e) => {
     e.preventDefault();
-    // Store in localStorage so Hero/Footer can read it on next render
-    localStorage.setItem('portfolio_profile', JSON.stringify(profile));
-    setProfileMsg({ type: 'success', text: 'Profile saved! Refresh the page to see changes reflected across the site.' });
+    setProfileLoading(true);
+    setProfileMsg({ type: '', text: '' });
+    try {
+      // 1. Save to MongoDB backend
+      const res = await profileAPI.update(profile);
+      const updatedData = res.data?.data || profile;
+      setProfile(updatedData);
+
+      // 2. Store in localStorage for instant local caching
+      localStorage.setItem('portfolio_profile', JSON.stringify(updatedData));
+      window.dispatchEvent(new Event('portfolio_profile_updated'));
+
+      // 3. Notify parent component to update UI immediately
+      if (onProfileUpdated) {
+        onProfileUpdated(updatedData);
+      }
+
+      setProfileMsg({
+        type: 'success',
+        text: 'Profile successfully updated and saved to MongoDB database! Changes are live across the site.',
+      });
+    } catch (err) {
+      // Fallback: save to localStorage if backend is unreachable
+      localStorage.setItem('portfolio_profile', JSON.stringify(profile));
+      window.dispatchEvent(new Event('portfolio_profile_updated'));
+      if (onProfileUpdated) onProfileUpdated(profile);
+      setProfileMsg({
+        type: 'success',
+        text: 'Profile saved to local cache! (' + (err.message || 'Offline mode') + ')',
+      });
+    } finally {
+      setProfileLoading(false);
+    }
   };
 
-  // Load profile from localStorage on mount
+  // Load profile from API and fallback to localStorage on mount
   useEffect(() => {
-    const saved = localStorage.getItem('portfolio_profile');
-    if (saved) {
-      try { setProfile(JSON.parse(saved)); } catch (_) {}
-    }
+    profileAPI.get()
+      .then(res => {
+        if (res.data?.data) {
+          setProfile(res.data.data);
+          localStorage.setItem('portfolio_profile', JSON.stringify(res.data.data));
+        }
+      })
+      .catch(() => {
+        const saved = localStorage.getItem('portfolio_profile');
+        if (saved) {
+          try { setProfile(JSON.parse(saved)); } catch (_) {}
+        }
+      });
   }, []);
 
   // ── Password Change Handler ──────────────────────────────────────────────────
@@ -799,7 +845,7 @@ const AdminDashboard = ({ isOpen, onClose, onProjectUpdated, onSkillsUpdated }) 
                 <div className="max-w-2xl mx-auto">
                   <SectionHeader
                     title="PROFILE & CONTACT INFO"
-                    subtitle="Changes saved to browser localStorage — refresh page to apply"
+                    subtitle="Syncs directly to MongoDB database and updates live across the entire website"
                   />
                   <StatusBanner msg={profileMsg} />
 
@@ -863,13 +909,21 @@ const AdminDashboard = ({ isOpen, onClose, onProjectUpdated, onSkillsUpdated }) 
                         placeholder="email for resume requests" className={INPUT} />
                     </div>
 
-                    <div className="p-3 rounded border border-yellow-500/20 bg-yellow-950/20 text-[11px] font-mono text-yellow-400">
-                      ⚠ Profile changes are stored locally. To make them permanent across all browsers, integrate a /api/profile endpoint in the backend.
+                    <div className="p-3 rounded border border-cyber-cyan/30 bg-cyber-cyan/5 text-[11px] font-mono text-gray-300">
+                      ✓ Profile changes are synced to MongoDB Atlas and cached locally. Changes update instantly across the entire website.
                     </div>
 
-                    <button type="submit"
-                      className="w-full py-3 rounded bg-cyber-cyan text-black font-orbitron font-bold text-xs uppercase tracking-wider shadow-glow-cyan hover:bg-white transition-all neo-clip flex items-center justify-center gap-2">
-                      <Save className="w-4 h-4" /> Save Profile Changes
+                    <button type="submit" disabled={profileLoading}
+                      className="w-full py-3 rounded bg-cyber-cyan text-black font-orbitron font-bold text-xs uppercase tracking-wider shadow-glow-cyan hover:bg-white transition-all neo-clip flex items-center justify-center gap-2 disabled:opacity-50">
+                      {profileLoading ? (
+                        <>
+                          <Loader2 className="w-4 h-4 animate-spin" /> Saving Changes...
+                        </>
+                      ) : (
+                        <>
+                          <Save className="w-4 h-4" /> Save Profile Changes
+                        </>
+                      )}
                     </button>
                   </form>
                 </div>

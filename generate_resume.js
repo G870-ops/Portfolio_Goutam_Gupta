@@ -411,6 +411,10 @@ pdfParts.push(Buffer.from(xrefStr));
 
 const finalPdfBuffer = Buffer.concat(pdfParts);
 
+// If master original PDF exists, sync it across all distribution endpoints
+const masterPath = path.resolve('d:/Desktop/portfolio_goutam/frontend/Goutam_Gupta_Resume.pdf');
+const uploadedPath = 'C:/Users/User/.gemini/antigravity-ide/brain/77554cc3-ed0b-45e2-8be1-87b21ee7688d/.user_uploaded/media_1792641964746.pdf';
+
 const targets = [
   'd:/Desktop/portfolio_goutam/frontend/public/Goutam_Gupta_Resume.pdf',
   'd:/Desktop/portfolio_goutam/frontend/public/resume.pdf',
@@ -418,7 +422,33 @@ const targets = [
   'd:/Desktop/portfolio_goutam/Goutam_Gupta_Resume.pdf',
 ];
 
-targets.forEach((t) => {
-  fs.writeFileSync(path.resolve(t), finalPdfBuffer);
-  console.log('Successfully written PDF to:', t, 'Size:', finalPdfBuffer.length, 'bytes');
-});
+if (fs.existsSync(masterPath) || fs.existsSync(uploadedPath)) {
+  const src = fs.existsSync(masterPath) ? masterPath : uploadedPath;
+  let pdfBuf = fs.readFileSync(src, 'latin1');
+  const origLen = pdfBuf.length;
+
+  function padReplace(target, replacement) {
+    const padLen = target.length - replacement.length;
+    if (padLen < 0) return;
+    const padded = replacement + ' '.repeat(padLen);
+    if (pdfBuf.includes(target)) {
+      pdfBuf = pdfBuf.replace(target, padded);
+    }
+  }
+
+  // Ensure broken local file links are corrected to working web URLs
+  padReplace('/URI(file:///C:/Users/User/Downloads/github.com/G870-ops) >>', '/URI(https://github.com/G870-ops) >>');
+  padReplace('/URI(file:///C:/Users/User/Downloads/%20https/github.com/G870-ops/Event_Booking_WebApp) >>', '/URI(https://github.com/G870-ops/Event_Booking_WebApp) >>');
+  padReplace('/URI(file:///C:/Users/User/Downloads/%20https/food-dev-frontend.vercel.app/) >>', '/URI(https://food-dev-frontend.vercel.app/) >>');
+
+  targets.forEach((t) => {
+    fs.writeFileSync(path.resolve(t), pdfBuf, 'latin1');
+    console.log('Successfully synced exact ATS Resume to:', t, 'Size:', pdfBuf.length, 'bytes');
+  });
+} else {
+  // Fallback to programmatic builder if master is not found
+  targets.forEach((t) => {
+    fs.writeFileSync(path.resolve(t), finalPdfBuffer);
+    console.log('Successfully written PDF to:', t, 'Size:', finalPdfBuffer.length, 'bytes');
+  });
+}

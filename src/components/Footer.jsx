@@ -1,14 +1,16 @@
 import React from 'react';
 import { ShieldCheck, Cpu, Terminal } from 'lucide-react';
 
-const Footer = ({ onOpenTerminal, onOpenAdmin }) => {
+const Footer = ({ onOpenTerminal, onOpenAdmin, profile }) => {
+  const brandName = profile?.name ? profile.name.trim().toUpperCase() : 'GOUTAM GUPTA';
+
   return (
     <footer className="mt-20 border-t border-cyber-border bg-black/80 py-12 px-4 text-center font-orbitron text-xs text-gray-500 relative z-10">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
         {/* Brand Copyright */}
         <div className="text-left">
           <p className="text-gray-300 font-bold tracking-wider mb-1">
-            © {new Date().getFullYear()} GOUTAM GUPTA • FULL-STACK DEVELOPER v4.0
+            © {new Date().getFullYear()} {brandName} • FULL-STACK DEVELOPER v4.0
           </p>
           <p className="text-[11px] text-gray-500 font-rajdhani">
             Kalyani Government Engineering College (KGEC) • Purulia Polytechnic

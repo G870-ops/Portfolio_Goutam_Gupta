@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Terminal, Shield, Cpu, Activity } from 'lucide-react';
 
-const Navbar = ({ onOpenTerminal, onOpenAdmin, matrixColor, setMatrixColor }) => {
+const Navbar = ({ onOpenTerminal, onOpenAdmin, matrixColor, setMatrixColor, profile }) => {
   const [latency, setLatency] = useState(24);
   const [memory, setMemory] = useState(14.2);
+  const logoName = profile?.name ? profile.name.trim().split(' ')[0].toUpperCase() : 'GOUTAM';
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -39,7 +40,7 @@ const Navbar = ({ onOpenTerminal, onOpenAdmin, matrixColor, setMatrixColor }) =>
         {/* Logo */}
         <a href="#hero" className="flex items-center gap-2 group">
           <span className="text-cyber-cyan font-black text-lg tracking-wider group-hover:text-glow-cyan transition-all">
-            GOUTAM<span className="text-cyber-pink">.DEV</span>
+            {logoName}<span className="text-cyber-pink">.DEV</span>
           </span>
           <span className="text-[10px] px-1.5 py-0.5 rounded border border-cyber-cyan/40 text-cyber-cyan hidden sm:inline">
             SYS_ARCH

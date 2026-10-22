@@ -72,6 +72,11 @@ export const authAPI = {
   changePassword: (data) => api.put('/auth/change-password', data),
 };
 
+export const profileAPI = {
+  get: () => api.get('/profile'),
+  update: (data) => api.put('/profile', data),
+};
+
 export const telemetryAPI = {
   getHealth: () => api.get('/health'),
 };
