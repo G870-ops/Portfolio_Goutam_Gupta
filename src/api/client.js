@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-// Resolve base API URL reliably (supports trailing slashes and missing /api path)
+
 const getApiBaseUrl = () => {
   const envUrl = import.meta.env.VITE_API_BASE_URL;
   if (!envUrl || !envUrl.trim()) {
@@ -12,7 +12,7 @@ const getApiBaseUrl = () => {
   return clean.endsWith('/api') ? clean : `${clean}/api`;
 };
 
-// Create configured Axios instance
+
 const api = axios.create({
   baseURL: getApiBaseUrl(),
   headers: {
@@ -20,7 +20,7 @@ const api = axios.create({
   },
 });
 
-// Request interceptor: inject JWT token if authenticated
+
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('portfolio_token');
@@ -32,7 +32,7 @@ api.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// Response interceptor: graceful error parsing
+
 api.interceptors.response.use(
   (response) => response,
   (error) => {
