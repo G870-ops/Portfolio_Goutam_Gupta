@@ -259,6 +259,15 @@ const AdminDashboard = ({ isOpen, onClose, onProjectUpdated, onSkillsUpdated, on
   const [profileMsg, setProfileMsg] = useState({ type: '', text: '' });
   const [profileLoading, setProfileLoading] = useState(false);
 
+  // Security & Password change state
+  const [passwordForm, setPasswordForm] = useState({
+    currentPassword: '',
+    newPassword: '',
+    confirmPassword: '',
+  });
+  const [passwordMsg, setPasswordMsg] = useState({ type: '', text: '' });
+  const [passwordLoading, setPasswordLoading] = useState(false);
+
   // ── Auth session ─────────────────────────────────────────────────────────────
   useEffect(() => {
     if (token) {
