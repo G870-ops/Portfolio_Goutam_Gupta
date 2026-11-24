@@ -6,7 +6,7 @@ import {
 } from 'lucide-react';
 import { authAPI, projectAPI, skillAPI, contactAPI, profileAPI } from '../api/client';
 
-// ─── Constants ────────────────────────────────────────────────────────────────
+
 const INPUT = 'w-full px-3 py-2 rounded bg-black/60 border border-white/10 text-white font-rajdhani text-sm outline-none focus:border-cyber-cyan transition-colors';
 const SELECT = 'w-full px-3 py-2 rounded bg-black/80 border border-white/10 text-white font-rajdhani text-sm outline-none focus:border-cyber-cyan transition-colors';
 
@@ -244,7 +244,7 @@ const AdminDashboard = ({ isOpen, onClose, onProjectUpdated, onSkillsUpdated, on
     try {
       const saved = localStorage.getItem('portfolio_profile');
       if (saved) return JSON.parse(saved);
-    } catch (_) {}
+    } catch (_) { }
     return {
       name: 'Goutam Gupta',
       bio: 'Full-Stack MERN Architect & Android Developer with deep expertise in reactive frontends, asynchronous Node.js microservices, distributed MongoDB pipelines, and mission-critical edge AI applications.',
@@ -488,12 +488,12 @@ const AdminDashboard = ({ isOpen, onClose, onProjectUpdated, onSkillsUpdated, on
       .catch(() => {
         const saved = localStorage.getItem('portfolio_profile');
         if (saved) {
-          try { setProfile(JSON.parse(saved)); } catch (_) {}
+          try { setProfile(JSON.parse(saved)); } catch (_) { }
         }
       });
   }, []);
 
-  // ── Password Change Handler ──────────────────────────────────────────────────
+
   const handleChangePassword = async (e) => {
     e.preventDefault();
     setPasswordMsg({ type: '', text: '' });
@@ -529,7 +529,7 @@ const AdminDashboard = ({ isOpen, onClose, onProjectUpdated, onSkillsUpdated, on
     }
   };
 
-  // ── Messages ──────────────────────────────────────────────────────────────────
+
   const handleDeleteMessage = async (id) => {
     try { await contactAPI.delete(id); loadAll(); }
     catch (err) { alert(`Failed: ${err.message}`); }
@@ -537,7 +537,7 @@ const AdminDashboard = ({ isOpen, onClose, onProjectUpdated, onSkillsUpdated, on
 
   if (!isOpen) return null;
 
-  // ── Tab button helper
+
   const Tab = ({ id, label, icon: Icon, count }) => (
     <button
       onClick={() => setActiveTab(id)}
@@ -576,7 +576,7 @@ const AdminDashboard = ({ isOpen, onClose, onProjectUpdated, onSkillsUpdated, on
             <div className="w-full max-w-md">
               <h3 className="font-orbitron text-xl font-bold text-cyber-pink mb-2 text-center">ADMIN ACCESS AUTHORIZATION</h3>
               <p className="text-xs font-rajdhani text-gray-400 text-center mb-6">
-                Enter admin credentials to manage live MongoDB projects and telemetry inquiries.
+
               </p>
 
               {loginError && (
@@ -614,11 +614,11 @@ const AdminDashboard = ({ isOpen, onClose, onProjectUpdated, onSkillsUpdated, on
           </div>
         )}
 
-        {/* ── AUTHENTICATED WORKSPACE ── */}
+
         {token && (
           <div className="flex-1 flex flex-col overflow-hidden min-h-0">
 
-            {/* Tab Bar */}
+
             <div className="px-4 py-2 border-b border-white/10 bg-black/40 flex items-center justify-between gap-2 flex-shrink-0 overflow-x-auto">
               <div className="flex items-center gap-1 flex-nowrap">
                 <Tab id="projects" label="Projects" count={projectsList.length} />
@@ -640,10 +640,10 @@ const AdminDashboard = ({ isOpen, onClose, onProjectUpdated, onSkillsUpdated, on
               </button>
             </div>
 
-            {/* Tab Content */}
+
             <div className="flex-1 overflow-y-auto p-5 min-h-0">
 
-              {/* ═══════════════════ PROJECTS LIST TAB ═══════════════════ */}
+
               {activeTab === 'projects' && (
                 <div>
                   <SectionHeader
@@ -671,12 +671,12 @@ const AdminDashboard = ({ isOpen, onClose, onProjectUpdated, onSkillsUpdated, on
                       <div key={p._id}
                         className="glass-panel p-4 rounded border border-white/10 hover:border-cyber-cyan/40 transition-colors">
                         <div className="flex items-start gap-3">
-                          {/* Thumbnail */}
+
                           {p.imageUrl && (
                             <img src={p.imageUrl} alt={p.title}
                               className="w-16 h-12 rounded object-cover border border-white/10 flex-shrink-0 hidden sm:block" />
                           )}
-                          {/* Info */}
+
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center gap-2 flex-wrap mb-1">
                               <h4 className="font-orbitron font-bold text-white text-sm">{p.title}</h4>
@@ -694,7 +694,7 @@ const AdminDashboard = ({ isOpen, onClose, onProjectUpdated, onSkillsUpdated, on
                               {p.apkUrl && <a href={p.apkUrl} target="_blank" rel="noreferrer" className="text-[10px] text-purple-300 flex items-center gap-1 hover:underline"><Download className="w-3 h-3" /> APK</a>}
                             </div>
                           </div>
-                          {/* Actions */}
+
                           <div className="flex flex-col gap-2 flex-shrink-0">
                             <button onClick={() => openEditProject(p)} title="Edit project"
                               className="p-2 rounded bg-amber-950/60 border border-amber-500/50 text-amber-400 hover:bg-amber-900 transition-colors">
@@ -712,10 +712,10 @@ const AdminDashboard = ({ isOpen, onClose, onProjectUpdated, onSkillsUpdated, on
                 </div>
               )}
 
-              {/* ═══════════════════ ADD PROJECT TAB ═══════════════════ */}
+
               {activeTab === 'addProject' && (
                 <div className="max-w-2xl mx-auto">
-                  <SectionHeader title="DEPLOY NEW PROJECT" subtitle="Add a new project document to MongoDB" />
+                  <SectionHeader title="DEPLOY NEW PROJECT" />
                   <ProjectForm
                     initial={EMPTY_PROJECT}
                     onSubmit={handleAddProject}
@@ -725,7 +725,7 @@ const AdminDashboard = ({ isOpen, onClose, onProjectUpdated, onSkillsUpdated, on
                 </div>
               )}
 
-              {/* ═══════════════════ EDIT PROJECT TAB ═══════════════════ */}
+
               {activeTab === 'editProject' && editProject && (
                 <div className="max-w-2xl mx-auto">
                   <SectionHeader
@@ -743,7 +743,7 @@ const AdminDashboard = ({ isOpen, onClose, onProjectUpdated, onSkillsUpdated, on
                 </div>
               )}
 
-              {/* ═══════════════════ SKILLS TAB ═══════════════════ */}
+
               {activeTab === 'skills' && (
                 <div>
                   <div className="flex items-center justify-between mb-4">
@@ -764,7 +764,7 @@ const AdminDashboard = ({ isOpen, onClose, onProjectUpdated, onSkillsUpdated, on
                     </div>
                   </div>
 
-                  {/* Inline Add Skill Form */}
+
                   {skillAddMode && (
                     <div className="mb-4 p-4 rounded-lg border border-cyber-pink/30 bg-cyber-pink/5">
                       <h4 className="font-orbitron text-xs font-bold text-cyber-pink mb-3">NEW SKILL</h4>
@@ -778,7 +778,7 @@ const AdminDashboard = ({ isOpen, onClose, onProjectUpdated, onSkillsUpdated, on
                     </div>
                   )}
 
-                  {/* Inline Edit Skill Form */}
+
                   {editSkill && (
                     <div className="mb-4 p-4 rounded-lg border border-amber-500/30 bg-amber-950/20">
                       <h4 className="font-orbitron text-xs font-bold text-amber-400 mb-3">
@@ -797,7 +797,7 @@ const AdminDashboard = ({ isOpen, onClose, onProjectUpdated, onSkillsUpdated, on
 
                   {!skillAddMode && !editSkill && <StatusBanner msg={skillMsg} />}
 
-                  {/* Skills grouped by category */}
+
                   {loadingData && <p className="text-xs font-mono text-cyber-cyan text-center py-6 animate-pulse">Loading skills...</p>}
 
                   {!loadingData && skillsList.length === 0 && (
@@ -849,7 +849,7 @@ const AdminDashboard = ({ isOpen, onClose, onProjectUpdated, onSkillsUpdated, on
                 </div>
               )}
 
-              {/* ═══════════════════ PROFILE TAB ═══════════════════ */}
+
               {activeTab === 'profile' && (
                 <div className="max-w-2xl mx-auto">
                   <SectionHeader
@@ -919,7 +919,7 @@ const AdminDashboard = ({ isOpen, onClose, onProjectUpdated, onSkillsUpdated, on
                     </div>
 
                     <div className="p-3 rounded border border-cyber-cyan/30 bg-cyber-cyan/5 text-[11px] font-mono text-gray-300">
-                      ✓ Profile changes are synced to MongoDB Atlas and cached locally. Changes update instantly across the entire website.
+
                     </div>
 
                     <button type="submit" disabled={profileLoading}
@@ -938,7 +938,7 @@ const AdminDashboard = ({ isOpen, onClose, onProjectUpdated, onSkillsUpdated, on
                 </div>
               )}
 
-              {/* ═══════════════════ SECURITY & PASSWORD TAB ═══════════════════ */}
+
               {activeTab === 'security' && (
                 <div className="max-w-xl mx-auto">
                   <SectionHeader
@@ -992,7 +992,7 @@ const AdminDashboard = ({ isOpen, onClose, onProjectUpdated, onSkillsUpdated, on
                     </div>
 
                     <div className="p-3 rounded border border-cyber-cyan/30 bg-cyber-cyan/5 text-[11px] font-mono text-gray-300">
-                      ℹ New password will be salted & hashed using bcrypt in MongoDB Atlas. Future admin logins will require this updated password.
+
                     </div>
 
                     <button
@@ -1016,7 +1016,7 @@ const AdminDashboard = ({ isOpen, onClose, onProjectUpdated, onSkillsUpdated, on
                 </div>
               )}
 
-              {/* ═══════════════════ MESSAGES TAB ═══════════════════ */}
+
               {activeTab === 'messages' && (
                 <div>
                   <SectionHeader

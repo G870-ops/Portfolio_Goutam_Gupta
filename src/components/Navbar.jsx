@@ -16,7 +16,6 @@ const Navbar = ({ onOpenTerminal, onOpenAdmin, matrixColor, setMatrixColor, prof
 
   return (
     <nav className="fixed top-0 left-0 w-full z-50 bg-[#020205]/90 backdrop-blur-md border-b border-cyber-border font-orbitron text-xs">
-      {/* Top HUD Telemetry Strip */}
       <div className="hidden md:flex justify-between items-center px-6 py-1.5 border-b border-white/5 text-[11px] text-gray-400">
         <div className="flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-cyber-green shadow-glow-green animate-pulse" />
@@ -35,9 +34,7 @@ const Navbar = ({ onOpenTerminal, onOpenAdmin, matrixColor, setMatrixColor, prof
         </div>
       </div>
 
-      {/* Main Navigation Bar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex justify-between items-center">
-        {/* Logo */}
         <a href="#hero" className="flex items-center gap-2 group">
           <span className="text-cyber-cyan font-black text-lg tracking-wider group-hover:text-glow-cyan transition-all">
             {logoName}<span className="text-cyber-pink">.DEV</span>
@@ -47,18 +44,16 @@ const Navbar = ({ onOpenTerminal, onOpenAdmin, matrixColor, setMatrixColor, prof
           </span>
         </a>
 
-        {/* Center Nav Links */}
         <div className="hidden lg:flex items-center gap-6 text-gray-300 font-rajdhani text-sm font-semibold tracking-wider">
           <a href="#about" className="hover:text-cyber-cyan transition-colors">ABOUT</a>
           <a href="#skills" className="hover:text-cyber-cyan transition-colors">SKILLS</a>
           <a href="#projects" className="hover:text-cyber-cyan transition-colors">PROJECTS</a>
+          <a href="#testimonials" className="hover:text-cyber-cyan transition-colors">REVIEWS</a>
           <a href="#achievements" className="hover:text-cyber-cyan transition-colors">ACHIEVEMENTS</a>
           <a href="#contact" className="hover:text-cyber-cyan transition-colors">CONTACT</a>
         </div>
 
-        {/* Action Controls */}
         <div className="flex items-center gap-3">
-          {/* Matrix theme switcher */}
           <div className="hidden sm:flex items-center gap-1.5 px-2 py-1 rounded bg-black/40 border border-white/10">
             <button
               onClick={() => setMatrixColor('#00f3ff')}
@@ -77,7 +72,6 @@ const Navbar = ({ onOpenTerminal, onOpenAdmin, matrixColor, setMatrixColor, prof
             />
           </div>
 
-          {/* Interactive Terminal Trigger */}
           <button
             onClick={onOpenTerminal}
             className="flex items-center gap-1.5 px-3 py-1.5 rounded border border-cyber-cyan text-cyber-cyan hover:bg-cyber-cyan hover:text-black font-semibold transition-all neo-clip"
@@ -86,7 +80,6 @@ const Navbar = ({ onOpenTerminal, onOpenAdmin, matrixColor, setMatrixColor, prof
             <span className="hidden sm:inline">TERMINAL</span>
           </button>
 
-          {/* Admin Dashboard Trigger */}
           <button
             onClick={onOpenAdmin}
             className="flex items-center gap-1.5 px-3 py-1.5 rounded border border-cyber-pink text-cyber-pink hover:bg-cyber-pink hover:text-black font-semibold transition-all neo-clip"

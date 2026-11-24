@@ -9,6 +9,7 @@ import MatrixBackground from './components/MatrixBackground';
 import TerminalModal from './components/TerminalModal';
 import AdminDashboard from './components/AdminDashboard';
 import { projectAPI, skillAPI, profileAPI } from './api/client';
+import Testimonials from './components/Testimonials';
 import { Trophy, GraduationCap, Award, ExternalLink, Smartphone } from 'lucide-react';
 
 function App() {
@@ -27,7 +28,6 @@ function App() {
   const [adminOpen, setAdminOpen] = useState(false);
   const [matrixColor, setMatrixColor] = useState('#00f3ff');
 
-  // Fallback initial data in case MongoDB is in cold boot or setup phase
   const initialFallbackProjects = [
     {
       title: 'Full Stack Food Delivery Website',
@@ -118,7 +118,7 @@ function App() {
         setProjects(initialFallbackProjects);
       }
     } catch (err) {
-      console.warn('[API NOTICE] Backend not connected yet, using verified offline cache.', err.message);
+      console.warn('Backend not connected, using offline cache.', err.message);
       setProjects(initialFallbackProjects);
     } finally {
       setLoadingProjects(false);
@@ -132,7 +132,7 @@ function App() {
         setSkills(res.data.data);
       }
     } catch (err) {
-      console.warn('[API NOTICE] Using built-in skill matrix.', err.message);
+      console.warn('Using built-in skill matrix.', err.message);
     }
   };
 
@@ -144,7 +144,7 @@ function App() {
         localStorage.setItem('portfolio_profile', JSON.stringify(res.data.data));
       }
     } catch (err) {
-      console.warn('[API NOTICE] Using local profile data.', err.message);
+      console.warn('Using local profile data.', err.message);
     }
   };
 
@@ -156,10 +156,8 @@ function App() {
 
   return (
     <div className="min-h-screen bg-[#020205] text-[#e5e5e5] relative selection:bg-cyan-500 selection:text-black">
-      {/* Background Matrix Canvas */}
       <MatrixBackground color={matrixColor} />
 
-      {/* Fixed Navbar with HUD Telemetry */}
       <Navbar
         onOpenTerminal={() => setTerminalOpen(true)}
         onOpenAdmin={() => setAdminOpen(true)}
@@ -167,11 +165,9 @@ function App() {
         setMatrixColor={setMatrixColor}
       />
 
-      {/* Main Content Sections */}
       <main className="relative z-10">
         <Hero onHireClick={() => { }} profile={profile} />
 
-        {/* About Section */}
         <section id="about" className="py-16 px-4 max-w-7xl mx-auto">
           <div className="flex items-center gap-4 mb-8">
             <h2 className="font-orbitron text-2xl sm:text-3xl font-bold uppercase tracking-wider text-cyber-cyan text-glow-cyan">
@@ -213,13 +209,12 @@ function App() {
           </div>
         </section>
 
-        {/* Dynamic Skills Grid */}
         <Skills skills={skills} />
 
-        {/* Dynamic Projects Grid */}
         <Projects projects={projects} loading={loadingProjects} />
 
-        {/* Achievements Section */}
+        <Testimonials />
+
         <section id="achievements" className="py-20 px-4 max-w-7xl mx-auto">
           <div className="flex items-center gap-4 mb-10">
             <h2 className="font-orbitron text-2xl sm:text-3xl font-bold uppercase tracking-wider text-cyber-cyan text-glow-cyan">
@@ -269,7 +264,6 @@ function App() {
           </div>
         </section>
 
-        {/* Academic Records */}
         <section id="academic" className="py-12 px-4 max-w-7xl mx-auto">
           <div className="flex items-center gap-4 mb-6">
             <h2 className="font-orbitron text-2xl sm:text-3xl font-bold uppercase tracking-wider text-cyber-cyan text-glow-cyan">
@@ -318,18 +312,15 @@ function App() {
           </div>
         </section>
 
-        {/* Dynamic Contact Form Section */}
         <Contact />
       </main>
 
-      {/* Terminal CLI Modal */}
       <TerminalModal
         isOpen={terminalOpen}
         onClose={() => setTerminalOpen(false)}
         projects={projects}
       />
 
-      {/* Admin Dashboard Modal */}
       <AdminDashboard
         isOpen={adminOpen}
         onClose={() => setAdminOpen(false)}
@@ -338,7 +329,6 @@ function App() {
         onProfileUpdated={(updated) => setProfile(updated)}
       />
 
-      {/* Footer */}
       <Footer
         onOpenTerminal={() => setTerminalOpen(true)}
         onOpenAdmin={() => setAdminOpen(true)}

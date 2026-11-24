@@ -36,7 +36,7 @@ const TerminalModal = ({ isOpen, onClose, projects = [] }) => {
       return;
     } else if (cmd === 'help') {
       newHistory.push({
-        text: "Available commands: 'about', 'skills', 'projects', 'achievements', 'academic', 'health', 'contact', 'clear', 'exit'",
+        text: "Available commands: 'about', 'skills', 'projects', 'testimonials', 'achievements', 'academic', 'health', 'contact', 'clear', 'exit'",
         color: 'text-cyber-pink',
       });
     } else if (cmd === 'about') {
@@ -95,7 +95,6 @@ const TerminalModal = ({ isOpen, onClose, projects = [] }) => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
       <div className="w-full max-w-2xl h-[480px] bg-[#05060d] border border-cyber-pink rounded shadow-2xl flex flex-col font-mono text-xs overflow-hidden">
-        {/* Terminal Header */}
         <div className="px-4 py-2 bg-pink-950/30 border-b border-cyber-pink/30 flex items-center justify-between text-cyber-pink font-orbitron">
           <div className="flex items-center gap-2">
             <TerminalIcon className="w-4 h-4 text-cyber-pink" />
@@ -106,7 +105,6 @@ const TerminalModal = ({ isOpen, onClose, projects = [] }) => {
           </button>
         </div>
 
-        {/* Output Stream */}
         <div className="flex-1 p-4 overflow-y-auto space-y-2 select-text">
           {history.map((item, index) => (
             <div key={index} className={`whitespace-pre-wrap leading-relaxed ${item.color}`}>
@@ -116,7 +114,6 @@ const TerminalModal = ({ isOpen, onClose, projects = [] }) => {
           <div ref={bottomRef} />
         </div>
 
-        {/* Input Bar */}
         <div className="p-3 bg-black/90 border-t border-white/10 flex items-center gap-2">
           <span className="text-cyber-cyan font-bold">goutam@root:~$</span>
           <input

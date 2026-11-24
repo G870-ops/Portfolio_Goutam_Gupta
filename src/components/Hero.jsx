@@ -51,7 +51,6 @@ const Hero = ({ onHireClick, profile: propProfile }) => {
   const [bioScanning, setBioScanning] = useState(false);
   const [bioStatus, setBioStatus] = useState('SECURED_HASH_PASS');
 
-  // Typewriter effect loop
   useEffect(() => {
     const currentFullText = titles[titleIndex];
     let timeout;
@@ -85,7 +84,6 @@ const Hero = ({ onHireClick, profile: propProfile }) => {
   return (
     <section id="hero" className="min-h-screen relative flex items-center justify-center pt-24 pb-16 px-4">
       <div className="max-w-5xl mx-auto text-center z-10 flex flex-col items-center">
-        {/* Profile Avatar with Neon Hex Halo */}
         <motion.div
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
@@ -105,7 +103,6 @@ const Hero = ({ onHireClick, profile: propProfile }) => {
           </div>
         </motion.div>
 
-        {/* Glitch Title */}
         <motion.h1
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -115,7 +112,6 @@ const Hero = ({ onHireClick, profile: propProfile }) => {
           {displayName}
         </motion.h1>
 
-        {/* Dynamic Typewriter Subtitle */}
         <div className="h-10 flex items-center justify-center mb-6">
           <span className="font-orbitron text-lg sm:text-2xl text-cyber-pink tracking-widest uppercase">
             &gt; {displayText}
@@ -123,12 +119,10 @@ const Hero = ({ onHireClick, profile: propProfile }) => {
           </span>
         </div>
 
-        {/* Mission Statement */}
         <p className="max-w-2xl text-gray-300 font-rajdhani text-base sm:text-lg leading-relaxed mb-8">
           {displayBio}
         </p>
 
-        {/* Call-to-Action Buttons */}
         <motion.div
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -154,7 +148,6 @@ const Hero = ({ onHireClick, profile: propProfile }) => {
           </a>
         </motion.div>
 
-        {/* Telemetry Contact Strip */}
         <div className="flex flex-wrap items-center justify-center gap-4 text-xs font-orbitron">
           <a
             href={`mailto:${displayEmail}`}
@@ -190,7 +183,6 @@ const Hero = ({ onHireClick, profile: propProfile }) => {
           </a>
         </div>
 
-        {/* Interactive Biometric Indicator */}
         <div
           onClick={handleBioScan}
           className="mt-8 flex items-center gap-3 px-4 py-2 rounded border border-cyber-border bg-black/40 cursor-pointer hover:border-cyber-green transition-all"

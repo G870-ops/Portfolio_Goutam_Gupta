@@ -19,7 +19,6 @@ const Projects = ({ projects = [], loading = false }) => {
 
   return (
     <section id="projects" className="py-20 px-4 max-w-7xl mx-auto">
-      {/* Section Header */}
       <div className="flex items-center gap-4 mb-6">
         <h2 className="font-orbitron text-2xl sm:text-3xl font-bold uppercase tracking-wider text-cyber-cyan text-glow-cyan">
           CORE_DEPLOYMENTS
@@ -34,7 +33,6 @@ const Projects = ({ projects = [], loading = false }) => {
         Production-grade full-stack ecosystems, edge AI integrations, and mobile architectures dynamically served from MongoDB Atlas REST pipelines.
       </p>
 
-      {/* Filter Chips */}
       <div className="flex flex-wrap items-center gap-2 mb-10">
         <div className="flex items-center gap-1.5 text-xs font-orbitron text-gray-500 mr-2">
           <Filter className="w-3.5 h-3.5 text-cyber-cyan" />
@@ -55,7 +53,6 @@ const Projects = ({ projects = [], loading = false }) => {
         ))}
       </div>
 
-      {/* Loading Skeleton */}
       {loading && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {[1, 2, 3, 4, 5, 6].map((i) => (
@@ -69,7 +66,6 @@ const Projects = ({ projects = [], loading = false }) => {
         </div>
       )}
 
-      {/* Projects Grid */}
       {!loading && (
         <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <AnimatePresence>
@@ -84,7 +80,6 @@ const Projects = ({ projects = [], loading = false }) => {
                 className="glass-panel rounded overflow-hidden flex flex-col justify-between hover:border-cyber-cyan hover:shadow-glow-cyan transition-all duration-300 group"
               >
                 <div>
-                  {/* Project Image Banner */}
                   <div className="relative h-48 w-full overflow-hidden bg-black/60">
                     <img
                       src={project.imageUrl}
@@ -93,12 +88,10 @@ const Projects = ({ projects = [], loading = false }) => {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#020205] via-transparent to-transparent" />
                     
-                    {/* Category Badge */}
                     <span className="absolute top-3 left-3 px-2 py-0.5 rounded bg-black/80 border border-cyber-cyan/50 text-[10px] font-orbitron text-cyber-cyan">
                       {project.category || 'Full Stack'}
                     </span>
 
-                    {/* Featured Star */}
                     {project.featured && (
                       <span className="absolute top-3 right-3 px-2 py-0.5 rounded bg-pink-900/80 border border-cyber-pink text-[10px] font-orbitron text-cyber-pink flex items-center gap-1 shadow-glow-pink">
                         <Zap className="w-2.5 h-2.5" />
@@ -107,7 +100,6 @@ const Projects = ({ projects = [], loading = false }) => {
                     )}
                   </div>
 
-                  {/* Body Content */}
                   <div className="p-5">
                     <h3 className="font-orbitron text-lg font-bold text-white group-hover:text-cyber-cyan transition-colors mb-2">
                       {project.title}
@@ -116,7 +108,6 @@ const Projects = ({ projects = [], loading = false }) => {
                       {project.description}
                     </p>
 
-                    {/* Tech Badges */}
                     <div className="flex flex-wrap gap-1.5 mb-4">
                       {project.techStack?.map((tech, idx) => (
                         <span
@@ -128,7 +119,6 @@ const Projects = ({ projects = [], loading = false }) => {
                       ))}
                     </div>
 
-                    {/* Expandable Telemetry Insight */}
                     <div className="border-t border-white/10 pt-3">
                       <button
                         onClick={() => toggleInsight(project._id || project.title)}
@@ -199,7 +189,6 @@ const Projects = ({ projects = [], loading = false }) => {
         </motion.div>
       )}
 
-      {/* Empty State */}
       {!loading && filteredProjects.length === 0 && (
         <div className="text-center py-16 glass-panel rounded">
           <p className="font-orbitron text-gray-400 text-sm">

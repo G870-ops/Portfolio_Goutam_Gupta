@@ -49,11 +49,9 @@ const Contact = () => {
           response.data?.message ||
           'Inbound transmission received and registered into MongoDB. Thank you!',
       });
-      // Clear form
       setFormData({ name: '', email: '', subject: '', message: '' });
     } catch (err) {
-      setStatus({
-        submitting: false,
+      setStatus({        submitting: false,
         success: false,
         error: true,
         message:
@@ -65,7 +63,6 @@ const Contact = () => {
 
   return (
     <section id="contact" className="py-20 px-4 max-w-4xl mx-auto">
-      {/* Section Header */}
       <div className="flex items-center gap-4 mb-6">
         <h2 className="font-orbitron text-2xl sm:text-3xl font-bold uppercase tracking-wider text-cyber-cyan text-glow-cyan">
           DISPATCH_TELEMETRY
@@ -80,13 +77,10 @@ const Contact = () => {
         Have a project idea, engineering collaboration, or employment opportunity? Send an encrypted transmission directly into Goutam Gupta's MongoDB pipeline.
       </p>
 
-      {/* Contact Card */}
       <div className="glass-panel p-6 sm:p-10 rounded border border-cyber-border shadow-2xl relative overflow-hidden">
-        {/* Glowing cyber accent lines */}
         <div className="absolute top-0 left-0 w-32 h-[2px] bg-cyber-cyan shadow-glow-cyan" />
         <div className="absolute top-0 right-0 w-32 h-[2px] bg-cyber-pink shadow-glow-pink" />
 
-        {/* Status Toast Banners */}
         {status.success && (
           <div className="mb-6 p-4 rounded bg-emerald-950/80 border border-cyber-green text-cyber-green flex items-start gap-3 animate-fadeIn">
             <CheckCircle2 className="w-5 h-5 flex-shrink-0 mt-0.5" />
@@ -109,7 +103,6 @@ const Contact = () => {
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {/* Sender Name */}
             <div>
               <label className="block text-xs font-orbitron uppercase text-cyber-cyan mb-2">
                 Your Identification / Name *
@@ -125,7 +118,6 @@ const Contact = () => {
               />
             </div>
 
-            {/* Sender Email */}
             <div>
               <label className="block text-xs font-orbitron uppercase text-cyber-cyan mb-2">
                 Return Vector / Email *
@@ -142,7 +134,6 @@ const Contact = () => {
             </div>
           </div>
 
-          {/* Subject */}
           <div>
             <label className="block text-xs font-orbitron uppercase text-cyber-cyan mb-2">
               Objective / Subject Line
@@ -157,7 +148,6 @@ const Contact = () => {
             />
           </div>
 
-          {/* Message */}
           <div>
             <label className="block text-xs font-orbitron uppercase text-cyber-cyan mb-2">
               Payload / Message *
@@ -173,11 +163,10 @@ const Contact = () => {
             />
           </div>
 
-          {/* Submit CTA */}
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2">
             <span className="text-[11px] font-orbitron text-gray-400 flex items-center gap-1.5">
               <Sparkles className="w-3.5 h-3.5 text-cyber-cyan" />
-              Direct dispatch to Nodemailer & MongoDB Atlas Document Store
+
             </span>
 
             <button
