@@ -10,6 +10,8 @@ import TerminalModal from './components/TerminalModal';
 import AdminDashboard from './components/AdminDashboard';
 import { projectAPI, skillAPI, profileAPI } from './api/client';
 import Testimonials from './components/Testimonials';
+import ResumeModal from './components/ResumeModal';
+import RecruiterBar from './components/RecruiterBar';
 import { Trophy, GraduationCap, Award, ExternalLink, Smartphone } from 'lucide-react';
 
 function App() {
@@ -26,6 +28,7 @@ function App() {
   const [loadingProjects, setLoadingProjects] = useState(true);
   const [terminalOpen, setTerminalOpen] = useState(false);
   const [adminOpen, setAdminOpen] = useState(false);
+  const [resumeOpen, setResumeOpen] = useState(false);
   const [matrixColor, setMatrixColor] = useState('#00f3ff');
 
   const initialFallbackProjects = [
@@ -166,7 +169,7 @@ function App() {
       />
 
       <main className="relative z-10">
-        <Hero onHireClick={() => { }} profile={profile} />
+        <Hero onHireClick={() => { }} onResumeClick={() => setResumeOpen(true)} profile={profile} />
 
         <section id="about" className="py-16 px-4 max-w-7xl mx-auto">
           <div className="flex items-center gap-4 mb-8">
@@ -327,6 +330,16 @@ function App() {
         onProjectUpdated={fetchProjects}
         onSkillsUpdated={fetchSkills}
         onProfileUpdated={(updated) => setProfile(updated)}
+      />
+
+      <ResumeModal
+        isOpen={resumeOpen}
+        onClose={() => setResumeOpen(false)}
+      />
+
+      <RecruiterBar
+        onOpenResume={() => setResumeOpen(true)}
+        onHireClick={() => {}}
       />
 
       <Footer

@@ -77,6 +77,12 @@ export const profileAPI = {
   update: (data) => api.put('/profile', data),
 };
 
+export const reviewAPI = {
+  getAll: () => api.get('/reviews'),
+  create: (data) => api.post('/reviews', data),
+  delete: (id) => api.delete(`/reviews/${id}`),
+};
+
 export const telemetryAPI = {
   getHealth: () => api.get('/health'),
 };

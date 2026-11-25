@@ -10,7 +10,7 @@ const titles = [
   'API & Cloud Specialist',
 ];
 
-const Hero = ({ onHireClick, profile: propProfile }) => {
+const Hero = ({ onHireClick, onResumeClick, profile: propProfile }) => {
   const [profile, setProfile] = useState(() => {
     try {
       const saved = localStorage.getItem('portfolio_profile');
@@ -141,6 +141,12 @@ const Hero = ({ onHireClick, profile: propProfile }) => {
             href="/Goutam_Gupta_Resume.pdf"
             target="_blank"
             rel="noopener noreferrer"
+            onClick={(e) => {
+              if (onResumeClick) {
+                e.preventDefault();
+                onResumeClick();
+              }
+            }}
             className="flex items-center gap-2 px-6 py-3 rounded border border-cyber-pink text-cyber-pink font-orbitron font-bold text-xs uppercase tracking-wider shadow-glow-pink hover:bg-cyber-pink hover:text-black transition-all neo-clip"
           >
             <Download className="w-4 h-4" />

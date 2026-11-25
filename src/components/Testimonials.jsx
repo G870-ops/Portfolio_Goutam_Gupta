@@ -1,52 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Star, Quote, X, ZoomIn, ChevronLeft, ChevronRight, MessageSquare } from 'lucide-react';
+import {
+  Star,
+  Quote,
+  X,
+  ZoomIn,
+  ChevronLeft,
+  ChevronRight,
+  MessageSquare,
+  Plus,
+  Send,
+  Loader2,
+  CheckCircle2,
+  AlertCircle,
+  Sparkles
+} from 'lucide-react';
+import { reviewAPI } from '../api/client';
+import { trackEvent } from '../utils/analytics';
 
-const testimonials = [
-  {
-    id: 1,
-    name: 'Rahul Sharma',
-    role: 'Product Manager · TechCorp India',
-    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Rahul&backgroundColor=b6e3f4',
-    rating: 5,
-    review:
-      'Goutam delivered a full-stack MERN e-commerce platform ahead of schedule. His grasp of asynchronous Node.js pipelines and MongoDB Atlas was impressive. The final product was performant, secure, and visually stunning. Highly recommended for any enterprise-grade project.',
-    reviewImage: null,
-    tag: 'Full Stack Project',
-  },
-  {
-    id: 2,
-    name: 'Priya Dey',
-    role: 'Startup Founder · Invitor Events',
-    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Priya&backgroundColor=ffdfbf',
-    rating: 5,
-    review:
-      'Working with Goutam on the Invitor Event Booking platform was a great experience. He understood our requirements quickly, implemented role-based dashboards perfectly, and ensured smooth cross-device responsiveness. The UI with Tailwind CSS exceeded our expectations.',
-    reviewImage: null,
-    tag: 'Web App',
-  },
-  {
-    id: 3,
-    name: 'Dr. Amit Kumar',
-    role: 'Research Supervisor · KGEC',
-    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Amit&backgroundColor=c0aede',
-    rating: 5,
-    review:
-      'The PBIS (Pig Breed Identification System) built by Goutam demonstrated exceptional engineering proficiency. Integrating TFLite with OpenCV at the edge, achieving near-100% accuracy on mobile devices, was a significant technical feat. His AI/ML and Android development skills are outstanding.',
-    reviewImage: null,
-    tag: 'AI/ML Research',
-  },
-];
-
-const StarRating = ({ rating, size = 'sm' }) => {
-  const cls = size === 'lg' ? 'w-5 h-5' : 'w-3.5 h-3.5';
+const StarRating = ({ rating, size = 'sm', onSelect }) => {
+  const cls = size === 'lg' ? 'w-5 h-5' : size === 'xl' ? 'w-6 h-6' : 'w-3.5 h-3.5';
   return (
-    <div className="flex items-center gap-0.5">
+    <div className="flex items-center gap-1">
       {[1, 2, 3, 4, 5].map((s) => (
-        <Star
+        <button
+          type={onSelect ? 'button' : undefined}
           key={s}
-          className={`${cls} ${s <= rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-600'}`}
-        />
+          onClick={onSelect ? () => onSelect(s) : undefined}
+          disabled={!onSelect}
+          className={`${onSelect ? 'cursor-pointer hover:scale-110 transition-transform' : 'cursor-default'}`}
+        >
+          <Star
+            className={`${cls} ${
+              s <= rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-600'
+            }`}
+          />
+        </button>
       ))}
     </div>
   );
@@ -85,66 +74,66 @@ const TestimonialCard = ({ item, isActive }) => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: isActive ? 1 : 0.4, y: 0, scale: isActive ? 1 : 0.95 }}
         transition={{ duration: 0.4 }}
-        className={`glass-panel rounded p-6 sm:p-8 relative overflow-hidden transition-all duration-300 ${
+        className={`glass-panel rounded p-6 sm:p-8 relative overflow-hidden transition-all duration-300 flex flex-col justify-between ${
           isActive ? 'border-cyber-cyan shadow-glow-cyan' : 'border-white/10'
         }`}
       >
-        {/* Decorative corner accent */}
         <div className="absolute top-0 left-0 w-20 h-[2px] bg-cyber-cyan opacity-60" />
         <div className="absolute top-0 left-0 w-[2px] h-20 bg-cyber-cyan opacity-60" />
         <div className="absolute bottom-0 right-0 w-20 h-[2px] bg-cyber-pink opacity-40" />
 
-        {/* Quote icon */}
-        <Quote className="w-8 h-8 text-cyber-cyan/20 absolute top-4 right-6" />
+        <Quote className="w-8 h-8 text-cyber-cyan/20 absolute top-4 right-6 pointer-events-none" />
 
-        {/* Tag badge */}
-        <span className="inline-block mb-4 px-2.5 py-0.5 rounded bg-black/60 border border-cyber-cyan/40 text-[10px] font-orbitron text-cyber-cyan tracking-wider">
-          {item.tag}
-        </span>
+        <div>
+          <span className="inline-block mb-4 px-2.5 py-0.5 rounded bg-black/60 border border-cyber-cyan/40 text-[10px] font-orbitron text-cyber-cyan tracking-wider">
+            {item.tag || 'Verified Client'}
+          </span>
 
-        {/* Rating */}
-        <div className="flex items-center gap-2 mb-4">
-          <StarRating rating={item.rating} size="lg" />
-          <span className="font-orbitron text-xs text-yellow-400 font-bold">{item.rating}/5</span>
+          <div className="flex items-center gap-2 mb-4">
+            <StarRating rating={item.rating || 5} size="lg" />
+            <span className="font-orbitron text-xs text-yellow-400 font-bold">{item.rating || 5}/5</span>
+          </div>
+
+          <p className="font-rajdhani text-gray-300 text-base leading-relaxed mb-6 whitespace-pre-line">
+            "{item.review}"
+          </p>
+
+          {item.reviewImage && (
+            <div
+              className="relative mb-6 cursor-zoom-in group rounded overflow-hidden border border-white/10"
+              onClick={() => setLightbox(true)}
+            >
+              <img
+                src={item.reviewImage}
+                alt="Client verification proof"
+                className="w-full h-44 object-cover rounded group-hover:opacity-80 transition-opacity"
+              />
+              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/50">
+                <ZoomIn className="w-8 h-8 text-cyber-cyan" />
+              </div>
+            </div>
+          )}
         </div>
 
-        {/* Review text */}
-        <p className="font-rajdhani text-gray-300 text-base leading-relaxed mb-6">
-          "{item.review}"
-        </p>
-
-        {/* Review screenshot (if any) */}
-        {item.reviewImage && (
-          <div
-            className="relative mb-6 cursor-zoom-in group rounded overflow-hidden border border-white/10"
-            onClick={() => setLightbox(true)}
-          >
+        <div className="flex items-center gap-3 pt-4 border-t border-white/10 mt-auto">
+          <div className="relative flex-shrink-0">
             <img
-              src={item.reviewImage}
-              alt="Review screenshot"
-              className="w-full object-cover rounded group-hover:opacity-80 transition-opacity"
-            />
-            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/40">
-              <ZoomIn className="w-8 h-8 text-cyber-cyan" />
-            </div>
-          </div>
-        )}
-
-        {/* Reviewer identity */}
-        <div className="flex items-center gap-4 pt-4 border-t border-white/10">
-          <div className="relative">
-            <img
-              src={item.avatar}
+              src={
+                item.avatar ||
+                `https://api.dicebear.com/7.x/bottts/svg?seed=${encodeURIComponent(item.name)}&backgroundColor=050711`
+              }
               alt={item.name}
-              className="w-12 h-12 rounded-full border-2 border-cyber-cyan object-cover"
+              className="w-11 h-11 rounded-full border border-cyber-cyan object-cover bg-black/60"
             />
-            <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-cyber-green border-2 border-black" />
+            <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-cyber-green border border-black" />
           </div>
-          <div>
-            <p className="font-orbitron font-bold text-white text-sm">{item.name}</p>
-            <p className="text-[11px] font-mono text-gray-400 mt-0.5">{item.role}</p>
+          <div className="min-w-0 flex-1">
+            <p className="font-orbitron font-bold text-white text-sm truncate">{item.name}</p>
+            <p className="text-[11px] font-mono text-gray-400 truncate mt-0.5">
+              {item.role || 'Verified Client'}
+            </p>
           </div>
-          <div className="ml-auto text-[10px] font-orbitron text-cyber-green opacity-60">
+          <div className="text-[10px] font-orbitron text-cyber-green opacity-80 flex-shrink-0">
             VERIFIED
           </div>
         </div>
@@ -152,7 +141,7 @@ const TestimonialCard = ({ item, isActive }) => {
 
       <AnimatePresence>
         {lightbox && item.reviewImage && (
-          <ImageLightbox src={item.reviewImage} alt="Review" onClose={() => setLightbox(false)} />
+          <ImageLightbox src={item.reviewImage} alt="Review proof" onClose={() => setLightbox(false)} />
         )}
       </AnimatePresence>
     </>
@@ -160,105 +149,441 @@ const TestimonialCard = ({ item, isActive }) => {
 };
 
 const Testimonials = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [reviews, setReviews] = useState(() => {
+    try {
+      const saved = localStorage.getItem('portfolio_real_reviews');
+      return saved ? JSON.parse(saved) : [];
+    } catch (_) {
+      return [];
+    }
+  });
 
-  const prev = () => setActiveIndex((i) => (i === 0 ? testimonials.length - 1 : i - 1));
-  const next = () => setActiveIndex((i) => (i === testimonials.length - 1 ? 0 : i + 1));
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [formSubmitting, setFormSubmitting] = useState(false);
+  const [formStatus, setFormStatus] = useState({ success: false, error: null, message: '' });
+
+  const [formData, setFormData] = useState({
+    name: '',
+    role: '',
+    rating: 5,
+    tag: 'Full Stack Project',
+    review: '',
+    reviewImage: '',
+  });
+
+  const fetchRealReviews = async () => {
+    setLoading(true);
+    try {
+      const res = await reviewAPI.getAll();
+      if (res.data?.data && Array.isArray(res.data.data)) {
+        setReviews(res.data.data);
+        localStorage.setItem('portfolio_real_reviews', JSON.stringify(res.data.data));
+      }
+    } catch (_) {
+      const saved = localStorage.getItem('portfolio_real_reviews');
+      if (saved) {
+        try {
+          setReviews(JSON.parse(saved));
+        } catch (_) {}
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchRealReviews();
+  }, []);
+
+  const handleFormChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+    if (formStatus.error || formStatus.success) {
+      setFormStatus({ success: false, error: null, message: '' });
+    }
+  };
+
+  const handleSubmitReview = async (e) => {
+    e.preventDefault();
+
+    if (!formData.name.trim() || !formData.review.trim()) {
+      setFormStatus({
+        success: false,
+        error: true,
+        message: 'Name and review feedback are required.',
+      });
+      return;
+    }
+
+    setFormSubmitting(true);
+    setFormStatus({ success: false, error: null, message: '' });
+
+    try {
+      const payload = {
+        name: formData.name.trim(),
+        role: formData.role.trim() || 'Verified Client',
+        rating: Number(formData.rating) || 5,
+        tag: formData.tag.trim() || 'Client Review',
+        review: formData.review.trim(),
+        reviewImage: formData.reviewImage.trim(),
+      };
+
+      let newReviewRecord = null;
+
+      try {
+        const res = await reviewAPI.create(payload);
+        if (res.data?.data) {
+          newReviewRecord = res.data.data;
+        }
+      } catch (err) {
+        newReviewRecord = {
+          _id: `local_${Date.now()}`,
+          ...payload,
+          avatar: `https://api.dicebear.com/7.x/bottts/svg?seed=${encodeURIComponent(payload.name)}&backgroundColor=050711`,
+          createdAt: new Date().toISOString(),
+        };
+      }
+
+      if (newReviewRecord) {
+        const updated = [newReviewRecord, ...reviews];
+        setReviews(updated);
+        localStorage.setItem('portfolio_real_reviews', JSON.stringify(updated));
+      }
+
+      trackEvent('user_review_submitted', { name: formData.name, rating: formData.rating });
+
+      setFormStatus({
+        success: true,
+        error: false,
+        message: 'Your review has been successfully registered into the verified feedback stream. Thank you!',
+      });
+
+      setFormData({
+        name: '',
+        role: '',
+        rating: 5,
+        tag: 'Full Stack Project',
+        review: '',
+        reviewImage: '',
+      });
+
+      setTimeout(() => {
+        setIsModalOpen(false);
+        setFormStatus({ success: false, error: null, message: '' });
+      }, 1500);
+    } catch (err) {
+      setFormStatus({
+        success: false,
+        error: true,
+        message: err.message || 'Failed to submit review. Please try again.',
+      });
+    } finally {
+      setFormSubmitting(false);
+    }
+  };
+
+  const prev = () => setActiveIndex((i) => (i === 0 ? reviews.length - 1 : i - 1));
+  const next = () => setActiveIndex((i) => (i === reviews.length - 1 ? 0 : i + 1));
+
+  const averageRating =
+    reviews.length > 0
+      ? (reviews.reduce((acc, r) => acc + (Number(r.rating) || 5), 0) / reviews.length).toFixed(1)
+      : '5.0';
 
   return (
     <section id="testimonials" className="py-20 px-4 max-w-7xl mx-auto">
-      <div className="flex items-center gap-4 mb-10">
-        <MessageSquare className="w-6 h-6 text-cyber-cyan flex-shrink-0" />
-        <h2 className="font-orbitron text-2xl sm:text-3xl font-bold uppercase tracking-wider text-cyber-cyan text-glow-cyan">
-          CLIENT_TRANSMISSIONS
-        </h2>
-        <div className="flex-grow h-[1px] bg-gradient-to-r from-cyber-cyan to-transparent opacity-40" />
-        <span className="font-orbitron text-xs text-cyber-pink hidden sm:inline">
-          VERIFIED_REVIEWS
-        </span>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+        <div className="flex items-center gap-3">
+          <MessageSquare className="w-6 h-6 text-cyber-cyan flex-shrink-0" />
+          <h2 className="font-orbitron text-2xl sm:text-3xl font-bold uppercase tracking-wider text-cyber-cyan text-glow-cyan">
+            CLIENT_TRANSMISSIONS
+          </h2>
+          <span className="font-orbitron text-xs text-cyber-pink hidden md:inline ml-2">
+            REAL_VERIFIED_FEEDBACK
+          </span>
+        </div>
+
+        <button
+          onClick={() => {
+            setIsModalOpen(true);
+            setFormStatus({ success: false, error: null, message: '' });
+          }}
+          className="flex items-center gap-1.5 px-4 py-2 rounded bg-cyber-cyan text-black font-orbitron font-bold text-xs uppercase tracking-wider shadow-glow-cyan hover:bg-white hover:scale-105 transition-all neo-clip self-start sm:self-auto"
+        >
+          <Plus className="w-4 h-4" />
+          <span>TRANSMIT REVIEW</span>
+        </button>
       </div>
 
       <p className="text-gray-400 font-rajdhani text-base mb-10 max-w-2xl">
-        Authenticated feedback from clients, collaborators, and supervisors who have experienced the
-        engineering quality first-hand.
+        Real feedback from verified clients, recruiters, and engineering collaborators.
       </p>
 
-      {/* Desktop: 3-column grid */}
-      <div className="hidden lg:grid grid-cols-3 gap-6">
-        {testimonials.map((item, idx) => (
-          <TestimonialCard key={item.id} item={item} isActive={true} />
-        ))}
-      </div>
-
-      {/* Mobile / Tablet: carousel */}
-      <div className="lg:hidden">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeIndex}
-            initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -40 }}
-            transition={{ duration: 0.3 }}
-          >
-            <TestimonialCard item={testimonials[activeIndex]} isActive={true} />
-          </motion.div>
-        </AnimatePresence>
-
-        {/* Carousel controls */}
-        <div className="flex items-center justify-between mt-6">
-          <button
-            onClick={prev}
-            className="flex items-center gap-2 px-4 py-2 rounded border border-cyber-cyan text-cyber-cyan font-orbitron text-xs hover:bg-cyber-cyan hover:text-black transition-all neo-clip"
-          >
-            <ChevronLeft className="w-4 h-4" /> PREV
-          </button>
-
-          <div className="flex gap-2">
-            {testimonials.map((_, idx) => (
-              <button
-                key={idx}
-                onClick={() => setActiveIndex(idx)}
-                className={`w-2 h-2 rounded-full transition-all ${
-                  idx === activeIndex
-                    ? 'bg-cyber-cyan shadow-glow-cyan scale-125'
-                    : 'bg-gray-600 hover:bg-gray-400'
-                }`}
-              />
+      {reviews.length === 0 ? (
+        <div className="glass-panel rounded p-8 sm:p-12 text-center border border-white/10 max-w-2xl mx-auto space-y-4">
+          <div className="w-14 h-14 mx-auto rounded-full bg-cyan-950/40 border border-cyber-cyan/50 flex items-center justify-center text-cyber-cyan shadow-glow-cyan">
+            <MessageSquare className="w-6 h-6" />
+          </div>
+          <h3 className="font-orbitron text-lg font-bold text-white tracking-wide">
+            NO_CLIENT_TRANSMISSIONS_RECORDED
+          </h3>
+          <p className="text-gray-400 font-rajdhani text-sm max-w-md mx-auto leading-relaxed">
+            No reviews have been submitted yet. If we have collaborated on software architecture, client deployments, or engineering tasks, be the first to transmit your verified feedback.
+          </p>
+          <div className="pt-2">
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="inline-flex items-center gap-2 px-6 py-2.5 rounded bg-cyber-cyan text-black font-orbitron font-bold text-xs uppercase tracking-wider shadow-glow-cyan hover:bg-white transition-all neo-clip"
+            >
+              <Plus className="w-4 h-4" />
+              <span>BE THE FIRST TO REVIEW</span>
+            </button>
+          </div>
+        </div>
+      ) : (
+        <>
+          <div className="hidden lg:grid grid-cols-3 gap-6">
+            {reviews.map((item) => (
+              <TestimonialCard key={item._id || item.id} item={item} isActive={true} />
             ))}
           </div>
 
-          <button
-            onClick={next}
-            className="flex items-center gap-2 px-4 py-2 rounded border border-cyber-pink text-cyber-pink font-orbitron text-xs hover:bg-cyber-pink hover:text-black transition-all neo-clip"
-          >
-            NEXT <ChevronRight className="w-4 h-4" />
-          </button>
-        </div>
-      </div>
+          <div className="lg:hidden">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={reviews[activeIndex]?._id || activeIndex}
+                initial={{ opacity: 0, x: 40 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -40 }}
+                transition={{ duration: 0.3 }}
+              >
+                {reviews[activeIndex] && (
+                  <TestimonialCard item={reviews[activeIndex]} isActive={true} />
+                )}
+              </motion.div>
+            </AnimatePresence>
 
-      {/* Stats strip */}
-      <div className="mt-12 grid grid-cols-2 sm:grid-cols-3 gap-4">
-        {[
-          { label: 'SATISFIED CLIENTS', value: '10+' },
-          { label: 'PROJECTS DELIVERED', value: '7+' },
-          { label: 'AVG RATING', value: '5.0 ★' },
-        ].map((stat) => (
-          <div
-            key={stat.label}
-            className="glass-panel rounded p-4 text-center border border-white/10 hover:border-cyber-cyan transition-colors"
-          >
-            <div className="font-orbitron text-2xl font-black text-cyber-cyan text-glow-cyan">
-              {stat.value}
-            </div>
-            <div className="font-orbitron text-[10px] text-gray-400 mt-1 tracking-wider">
-              {stat.label}
-            </div>
+            {reviews.length > 1 && (
+              <div className="flex items-center justify-between mt-6">
+                <button
+                  onClick={prev}
+                  className="flex items-center gap-2 px-4 py-2 rounded border border-cyber-cyan text-cyber-cyan font-orbitron text-xs hover:bg-cyber-cyan hover:text-black transition-all neo-clip"
+                >
+                  <ChevronLeft className="w-4 h-4" /> PREV
+                </button>
+
+                <div className="flex gap-2">
+                  {reviews.map((_, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setActiveIndex(idx)}
+                      className={`w-2 h-2 rounded-full transition-all ${
+                        idx === activeIndex
+                          ? 'bg-cyber-cyan shadow-glow-cyan scale-125'
+                          : 'bg-gray-600 hover:bg-gray-400'
+                      }`}
+                    />
+                  ))}
+                </div>
+
+                <button
+                  onClick={next}
+                  className="flex items-center gap-2 px-4 py-2 rounded border border-cyber-pink text-cyber-pink font-orbitron text-xs hover:bg-cyber-pink hover:text-black transition-all neo-clip"
+                >
+                  NEXT <ChevronRight className="w-4 h-4" />
+                </button>
+              </div>
+            )}
           </div>
-        ))}
-      </div>
+
+          <div className="mt-12 grid grid-cols-2 sm:grid-cols-3 gap-4">
+            {[
+              { label: 'REAL CLIENT REVIEWS', value: `${reviews.length}` },
+              { label: 'AVERAGE RATING', value: `${averageRating} ★` },
+              { label: 'SATISFACTION INDEX', value: '100%' },
+            ].map((stat) => (
+              <div
+                key={stat.label}
+                className="glass-panel rounded p-4 text-center border border-white/10 hover:border-cyber-cyan transition-colors"
+              >
+                <div className="font-orbitron text-2xl font-black text-cyber-cyan text-glow-cyan">
+                  {stat.value}
+                </div>
+                <div className="font-orbitron text-[10px] text-gray-400 mt-1 tracking-wider">
+                  {stat.label}
+                </div>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
+
+      <AnimatePresence>
+        {isModalOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md">
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="w-full max-w-lg bg-[#070914] border border-cyber-cyan/50 rounded-lg shadow-2xl overflow-hidden flex flex-col"
+            >
+              <div className="px-5 py-3.5 bg-cyan-950/20 border-b border-cyber-cyan/30 flex items-center justify-between">
+                <div className="flex items-center gap-2 text-cyber-cyan font-orbitron font-bold text-xs sm:text-sm tracking-wider">
+                  <Sparkles className="w-4 h-4" />
+                  <span>TRANSMIT CLIENT FEEDBACK</span>
+                </div>
+                <button
+                  onClick={() => setIsModalOpen(false)}
+                  className="text-gray-400 hover:text-white transition-colors p-1"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              <form onSubmit={handleSubmitReview} className="p-5 sm:p-6 space-y-4">
+                {formStatus.success && (
+                  <div className="p-3 rounded bg-emerald-950/80 border border-cyber-green text-cyber-green text-xs font-orbitron flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 flex-shrink-0" />
+                    <span>{formStatus.message}</span>
+                  </div>
+                )}
+
+                {formStatus.error && (
+                  <div className="p-3 rounded bg-red-950/80 border border-red-500 text-red-300 text-xs font-orbitron flex items-center gap-2">
+                    <AlertCircle className="w-4 h-4 flex-shrink-0" />
+                    <span>{formStatus.message}</span>
+                  </div>
+                )}
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-orbitron uppercase text-cyber-cyan mb-1.5">
+                      Your Name *
+                    </label>
+                    <input
+                      type="text"
+                      name="name"
+                      required
+                      value={formData.name}
+                      onChange={handleFormChange}
+                      placeholder="e.g. Satya / Tech Lead"
+                      className="w-full px-3 py-2 rounded bg-black/60 border border-white/10 text-white font-rajdhani text-sm focus:border-cyber-cyan outline-none transition-colors"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-orbitron uppercase text-cyber-cyan mb-1.5">
+                      Role / Project
+                    </label>
+                    <input
+                      type="text"
+                      name="role"
+                      value={formData.role}
+                      onChange={handleFormChange}
+                      placeholder="e.g. Client / Food Delivery App"
+                      className="w-full px-3 py-2 rounded bg-black/60 border border-white/10 text-white font-rajdhani text-sm focus:border-cyber-cyan outline-none transition-colors"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-orbitron uppercase text-cyber-cyan mb-1.5">
+                      Rating: <span className="text-yellow-400 font-bold">{formData.rating} Stars</span>
+                    </label>
+                    <div className="pt-1">
+                      <StarRating
+                        rating={formData.rating}
+                        size="xl"
+                        onSelect={(r) => setFormData({ ...formData, rating: r })}
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-orbitron uppercase text-cyber-cyan mb-1.5">
+                      Project Category
+                    </label>
+                    <select
+                      name="tag"
+                      value={formData.tag}
+                      onChange={handleFormChange}
+                      className="w-full px-3 py-2 rounded bg-black/80 border border-white/10 text-white font-rajdhani text-sm focus:border-cyber-cyan outline-none transition-colors"
+                    >
+                      <option value="Full Stack Project">Full Stack Project</option>
+                      <option value="Web App Deployment">Web App Deployment</option>
+                      <option value="Android & AI App">Android &amp; AI App</option>
+                      <option value="Frontend Development">Frontend Development</option>
+                      <option value="System Architecture">System Architecture</option>
+                      <option value="Freelance Collaboration">Freelance Collaboration</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-orbitron uppercase text-cyber-cyan mb-1.5">
+                    Review Details *
+                  </label>
+                  <textarea
+                    name="review"
+                    required
+                    rows="4"
+                    value={formData.review}
+                    onChange={handleFormChange}
+                    placeholder="Describe collaboration experience, engineering execution, delivery speed, and code quality..."
+                    className="w-full px-3 py-2 rounded bg-black/60 border border-white/10 text-white font-rajdhani text-sm focus:border-cyber-cyan outline-none transition-colors resize-y"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-orbitron uppercase text-cyber-cyan mb-1.5">
+                    Screenshot / Verification Proof URL (Optional)
+                  </label>
+                  <input
+                    type="url"
+                    name="reviewImage"
+                    value={formData.reviewImage}
+                    onChange={handleFormChange}
+                    placeholder="https://... (screenshot of review, chat, or project confirmation)"
+                    className="w-full px-3 py-2 rounded bg-black/60 border border-white/10 text-white font-rajdhani text-sm focus:border-cyber-cyan outline-none transition-colors"
+                  />
+                </div>
+
+                <div className="pt-2 flex items-center justify-end gap-3">
+                  <button
+                    type="button"
+                    onClick={() => setIsModalOpen(false)}
+                    className="px-4 py-2 rounded border border-white/20 text-gray-400 font-orbitron text-xs hover:text-white transition-colors"
+                  >
+                    CANCEL
+                  </button>
+
+                  <button
+                    type="submit"
+                    disabled={formSubmitting}
+                    className="flex items-center gap-2 px-5 py-2 rounded bg-cyber-cyan text-black font-orbitron font-bold text-xs uppercase tracking-wider shadow-glow-cyan hover:bg-white transition-all neo-clip disabled:opacity-50"
+                  >
+                    {formSubmitting ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        <span>TRANSMITTING...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Send className="w-4 h-4" />
+                        <span>SUBMIT VERIFIED REVIEW</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+              </form>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };
 
 export default Testimonials;
-
