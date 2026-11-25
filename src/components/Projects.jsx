@@ -83,6 +83,16 @@ const Projects = ({ projects = [], loading = false }) => {
     setActiveCaseStudyProject(project);
   };
 
+  const handleCloseCaseStudy = () => {
+    setActiveCaseStudyProject(null);
+    setTimeout(() => {
+      const el = document.getElementById('projects');
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 50);
+  };
+
   return (
     <section id="projects" className="py-20 px-4 max-w-7xl mx-auto">
       <div className="flex items-center gap-4 mb-6">
@@ -307,7 +317,7 @@ const Projects = ({ projects = [], loading = false }) => {
       <ProjectCaseStudyModal
         project={activeCaseStudyProject}
         isOpen={Boolean(activeCaseStudyProject)}
-        onClose={() => setActiveCaseStudyProject(null)}
+        onClose={handleCloseCaseStudy}
       />
     </section>
   );

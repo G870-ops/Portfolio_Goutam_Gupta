@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   X,
+  ArrowLeft,
   ExternalLink,
   Github,
   Smartphone,
@@ -136,14 +137,35 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose }) => {
     setTimeout(() => setCopiedKey(''), 2000);
   };
 
+  const handleBackToProjects = () => {
+    if (onClose) onClose();
+    setTimeout(() => {
+      const el = document.getElementById('projects');
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 50);
+  };
+
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/85 backdrop-blur-md">
-      <div className="w-full max-w-5xl h-[94vh] max-h-[900px] bg-[#070914] border border-cyber-cyan/50 rounded-lg shadow-2xl flex flex-col overflow-hidden">
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/85 backdrop-blur-md"
+      onClick={handleBackToProjects}
+    >
+      <div
+        className="w-full max-w-5xl h-[94vh] max-h-[900px] bg-[#070914] border border-cyber-cyan/50 rounded-lg shadow-2xl flex flex-col overflow-hidden"
+        onClick={(e) => e.stopPropagation()}
+      >
         <div className="px-5 py-4 bg-cyan-950/20 border-b border-cyber-cyan/30 flex items-center justify-between flex-shrink-0">
           <div className="flex items-center gap-3">
-            <span className="p-1.5 rounded bg-black/60 border border-cyber-cyan/40 text-cyber-cyan">
-              <Layers className="w-4 h-4" />
-            </span>
+            <button
+              onClick={handleBackToProjects}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded border border-cyber-cyan text-cyber-cyan hover:bg-cyber-cyan hover:text-black font-orbitron font-bold text-xs uppercase tracking-wider transition-all neo-clip shadow-glow-cyan"
+            >
+              <ArrowLeft className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">BACK TO PROJECTS</span>
+              <span className="sm:hidden">BACK</span>
+            </button>
             <div>
               <div className="flex items-center gap-2">
                 <h3 className="font-orbitron font-bold text-white text-sm sm:text-base tracking-wide">
@@ -160,8 +182,9 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose }) => {
           </div>
 
           <button
-            onClick={onClose}
+            onClick={handleBackToProjects}
             className="text-gray-400 hover:text-white transition-colors p-1"
+            title="Back to Projects"
           >
             <X className="w-5 h-5" />
           </button>
@@ -411,10 +434,11 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose }) => {
           </div>
 
           <button
-            onClick={onClose}
-            className="text-xs font-orbitron text-gray-400 hover:text-white px-3 py-1.5 rounded border border-white/10 hover:border-white/30 transition-all"
+            onClick={handleBackToProjects}
+            className="flex items-center gap-1.5 text-xs font-orbitron font-bold text-cyber-cyan hover:text-white px-3.5 py-1.5 rounded border border-cyber-cyan/50 hover:border-cyber-cyan hover:bg-cyber-cyan/10 transition-all shadow-glow-cyan neo-clip"
           >
-            CLOSE DOSSIER
+            <ArrowLeft className="w-3.5 h-3.5" />
+            <span>BACK TO PROJECTS</span>
           </button>
         </div>
       </div>
