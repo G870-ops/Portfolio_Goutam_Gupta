@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import {
   X,
   ArrowLeft,
@@ -9,16 +8,13 @@ import {
   Layers,
   Cpu,
   ShieldCheck,
-  Zap,
   CheckCircle2,
   Copy,
   Check,
   Server,
   Database,
   Lock,
-  Activity,
-  Gauge,
-  Code
+  Gauge
 } from 'lucide-react';
 import SystemDiagram from './SystemDiagram';
 import { trackEvent } from '../utils/analytics';
@@ -27,8 +23,6 @@ const getProjectCaseStudyDetails = (project) => {
   const title = project?.title || '';
   const isAI = project?.category === 'AI/ML' || title.toLowerCase().includes('pbis') || title.toLowerCase().includes('jarvis');
   const isAndroid = project?.category === 'Mobile / Android' || title.toLowerCase().includes('app') || title.toLowerCase().includes('calculator');
-  const isFood = title.toLowerCase().includes('food');
-  const isEvent = title.toLowerCase().includes('invitor') || title.toLowerCase().includes('event');
 
   let whyDb = 'MongoDB Atlas was chosen over PostgreSQL for dynamic schema evolutions, deeply nested document queries (cart items, sub-documents), and horizontal sharding capabilities with native JSON-to-BSON mapping.';
   let diagramType = 'mern';

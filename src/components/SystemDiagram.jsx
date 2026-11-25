@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Database, Server, Smartphone, Cpu, Cloud, ShieldCheck, Activity, Layers, ArrowRight, Zap } from 'lucide-react';
+import { Database, Server, Smartphone, Cpu, ShieldCheck, Activity, Layers, ArrowRight, Zap } from 'lucide-react';
 
-const SystemDiagram = ({ type = 'mern', title = 'System Architecture' }) => {
+const SystemDiagram = ({ type = 'mern' }) => {
   const [activeNode, setActiveNode] = useState(null);
 
   if (type === 'ai_mobile') {

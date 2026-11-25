@@ -26,7 +26,6 @@ const EMPTY_SKILL = {
   name: '', category: 'Programming Languages', proficiency: 85, icon: 'Code',
 };
 
-// ─── Reusable Status Banner ───────────────────────────────────────────────────
 const StatusBanner = ({ msg }) => {
   if (!msg.text) return null;
   const isSuccess = msg.type === 'success';
@@ -41,7 +40,6 @@ const StatusBanner = ({ msg }) => {
   );
 };
 
-// ─── Section Header ───────────────────────────────────────────────────────────
 const SectionHeader = ({ title, subtitle, onRefresh, loading }) => (
   <div className="flex items-center justify-between mb-4">
     <div>
@@ -57,7 +55,6 @@ const SectionHeader = ({ title, subtitle, onRefresh, loading }) => (
   </div>
 );
 
-// ─── Project Form (Add / Edit) ────────────────────────────────────────────────
 const ProjectForm = ({ initial, onSubmit, submitLabel, msg, onCancel }) => {
   const [form, setForm] = useState(initial);
   useEffect(() => setForm(initial), [initial]);
@@ -155,7 +152,6 @@ const ProjectForm = ({ initial, onSubmit, submitLabel, msg, onCancel }) => {
   );
 };
 
-// ─── Skill Form (Add / Edit) ──────────────────────────────────────────────────
 const SkillForm = ({ initial, onSubmit, submitLabel, msg, onCancel }) => {
   const [form, setForm] = useState(initial);
   useEffect(() => setForm(initial), [initial]);
@@ -209,37 +205,30 @@ const SkillForm = ({ initial, onSubmit, submitLabel, msg, onCancel }) => {
   );
 };
 
-// ─── Main Component ───────────────────────────────────────────────────────────
 const AdminDashboard = ({ isOpen, onClose, onProjectUpdated, onSkillsUpdated, onProfileUpdated }) => {
   const [token, setToken] = useState(localStorage.getItem('portfolio_token') || '');
   const [adminUser, setAdminUser] = useState(null);
 
-  // Login
   const [loginForm, setLoginForm] = useState({ usernameOrEmail: '', password: '' });
   const [loginLoading, setLoginLoading] = useState(false);
   const [loginError, setLoginError] = useState('');
 
-  // Active tab: 'projects' | 'addProject' | 'editProject' | 'skills' | 'profile' | 'messages'
   const [activeTab, setActiveTab] = useState('projects');
 
-  // Data lists
   const [projectsList, setProjectsList] = useState([]);
   const [skillsList, setSkillsList] = useState([]);
   const [messagesList, setMessagesList] = useState([]);
   const [loadingData, setLoadingData] = useState(false);
 
-  // Project editing
   const [editProject, setEditProject] = useState(null);
   const [editProjectInitial, setEditProjectInitial] = useState(EMPTY_PROJECT);
   const [projectMsg, setProjectMsg] = useState({ type: '', text: '' });
 
-  // Skill editing
   const [editSkill, setEditSkill] = useState(null);
   const [editSkillInitial, setEditSkillInitial] = useState(EMPTY_SKILL);
   const [skillAddMode, setSkillAddMode] = useState(false);
   const [skillMsg, setSkillMsg] = useState({ type: '', text: '' });
 
-  // Profile panel state (editable clone of Hero static data)
   const [profile, setProfile] = useState(() => {
     try {
       const saved = localStorage.getItem('portfolio_profile');
@@ -259,7 +248,6 @@ const AdminDashboard = ({ isOpen, onClose, onProjectUpdated, onSkillsUpdated, on
   const [profileMsg, setProfileMsg] = useState({ type: '', text: '' });
   const [profileLoading, setProfileLoading] = useState(false);
 
-  // Security & Password change state
   const [passwordForm, setPasswordForm] = useState({
     currentPassword: '',
     newPassword: '',
@@ -268,7 +256,6 @@ const AdminDashboard = ({ isOpen, onClose, onProjectUpdated, onSkillsUpdated, on
   const [passwordMsg, setPasswordMsg] = useState({ type: '', text: '' });
   const [passwordLoading, setPasswordLoading] = useState(false);
 
-  // ── Auth session ─────────────────────────────────────────────────────────────
   useEffect(() => {
     if (token) {
       authAPI.getMe()
@@ -300,7 +287,6 @@ const AdminDashboard = ({ isOpen, onClose, onProjectUpdated, onSkillsUpdated, on
     }
   }, []);
 
-  // ── Auth ──────────────────────────────────────────────────────────────────────
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoginLoading(true);
@@ -325,7 +311,6 @@ const AdminDashboard = ({ isOpen, onClose, onProjectUpdated, onSkillsUpdated, on
     setAdminUser(null);
   };
 
-  // ── Projects ──────────────────────────────────────────────────────────────────
   const handleAddProject = async (form) => {
     setProjectMsg({ type: '', text: '' });
     try {
@@ -391,7 +376,6 @@ const AdminDashboard = ({ isOpen, onClose, onProjectUpdated, onSkillsUpdated, on
     }
   };
 
-  // ── Skills ────────────────────────────────────────────────────────────────────
   const handleAddSkill = async (form) => {
     setSkillMsg({ type: '', text: '' });
     try {
@@ -438,22 +422,18 @@ const AdminDashboard = ({ isOpen, onClose, onProjectUpdated, onSkillsUpdated, on
     }
   };
 
-  // ── Profile ───────────────────────────────────────────────────────────────────
   const saveProfile = async (e) => {
     e.preventDefault();
     setProfileLoading(true);
     setProfileMsg({ type: '', text: '' });
     try {
-      // 1. Save to MongoDB backend
       const res = await profileAPI.update(profile);
       const updatedData = res.data?.data || profile;
       setProfile(updatedData);
 
-      // 2. Store in localStorage for instant local caching
       localStorage.setItem('portfolio_profile', JSON.stringify(updatedData));
       window.dispatchEvent(new Event('portfolio_profile_updated'));
 
-      // 3. Notify parent component to update UI immediately
       if (onProfileUpdated) {
         onProfileUpdated(updatedData);
       }
@@ -463,7 +443,6 @@ const AdminDashboard = ({ isOpen, onClose, onProjectUpdated, onSkillsUpdated, on
         text: 'Profile successfully updated and saved to MongoDB database! Changes are live across the site.',
       });
     } catch (err) {
-      // Fallback: save to localStorage if backend is unreachable
       localStorage.setItem('portfolio_profile', JSON.stringify(profile));
       window.dispatchEvent(new Event('portfolio_profile_updated'));
       if (onProfileUpdated) onProfileUpdated(profile);
@@ -476,7 +455,6 @@ const AdminDashboard = ({ isOpen, onClose, onProjectUpdated, onSkillsUpdated, on
     }
   };
 
-  // Load profile from API and fallback to localStorage on mount
   useEffect(() => {
     profileAPI.get()
       .then(res => {
@@ -553,7 +531,6 @@ const AdminDashboard = ({ isOpen, onClose, onProjectUpdated, onSkillsUpdated, on
     <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/85 backdrop-blur-md">
       <div className="w-full max-w-5xl max-h-[94vh] bg-[#070914] border border-cyber-cyan/50 rounded-lg shadow-2xl flex flex-col overflow-hidden">
 
-        {/* ── Header ── */}
         <div className="px-5 py-3.5 bg-cyan-950/20 border-b border-cyber-cyan/30 flex items-center justify-between flex-shrink-0">
           <div className="flex items-center gap-2 text-cyber-cyan font-orbitron font-bold text-sm tracking-wider">
             <Shield className="w-4 h-4" />
@@ -570,14 +547,10 @@ const AdminDashboard = ({ isOpen, onClose, onProjectUpdated, onSkillsUpdated, on
           </button>
         </div>
 
-        {/* ── LOGIN SCREEN ── */}
         {!token && (
           <div className="p-8 sm:p-12 flex flex-col items-center justify-center flex-1">
             <div className="w-full max-w-md">
-              <h3 className="font-orbitron text-xl font-bold text-cyber-pink mb-2 text-center">ADMIN ACCESS AUTHORIZATION</h3>
-              <p className="text-xs font-rajdhani text-gray-400 text-center mb-6">
-
-              </p>
+              <h3 className="font-orbitron text-xl font-bold text-cyber-pink mb-6 text-center">ADMIN ACCESS AUTHORIZATION</h3>
 
               {loginError && (
                 <div className="mb-4 p-3 rounded bg-red-950/80 border border-red-500 text-red-300 text-xs font-orbitron flex items-center gap-2">
@@ -989,10 +962,6 @@ const AdminDashboard = ({ isOpen, onClose, onProjectUpdated, onSkillsUpdated, on
                           className={INPUT}
                         />
                       </div>
-                    </div>
-
-                    <div className="p-3 rounded border border-cyber-cyan/30 bg-cyber-cyan/5 text-[11px] font-mono text-gray-300">
-
                     </div>
 
                     <button

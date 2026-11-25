@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Send, CheckCircle2, AlertCircle, Loader2, Sparkles } from 'lucide-react';
+import { Send, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
 import { contactAPI } from '../api/client';
 
 const Contact = () => {
@@ -163,11 +163,7 @@ const Contact = () => {
             />
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2">
-            <span className="text-[11px] font-orbitron text-gray-400 flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5 text-cyber-cyan" />
-
-            </span>
+          <div className="flex items-center justify-end pt-2">
 
             <button
               type="submit"

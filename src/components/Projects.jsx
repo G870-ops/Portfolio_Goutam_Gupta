@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ExternalLink, Github, Zap, Filter, Layers, Smartphone, Search, X, BookOpen, Cpu } from 'lucide-react';
+import { ExternalLink, Github, Zap, Filter, Layers, Smartphone, Search, X, BookOpen } from 'lucide-react';
 import ProjectCaseStudyModal from './ProjectCaseStudyModal';
 import { trackEvent } from '../utils/analytics';
 

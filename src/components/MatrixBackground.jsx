@@ -8,7 +8,6 @@ const MatrixBackground = ({ color = '#00f3ff' }) => {
     if (!canvas) return;
 
     const ctx = canvas.getContext('2d');
-    let animationFrameId;
 
     const handleResize = () => {
       canvas.width = window.innerWidth;
